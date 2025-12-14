@@ -5359,35 +5359,50 @@ pcall(function()
     HouseTab:AddLabel("انتقال للبيوت")
 end)
 
--- Seção para Auto Unban
+
 pcall(function()
     HouseTab:AddSection({ Name = "مضاد باند" })
 end)
 
--- Toggle para Auto Unban
-pcall(function()
     HouseTab:AddToggle({
-        Name = "مضاد باند",
-        Default = false,
-        Callback = function(state)
-            isUnbanActive = state
-            if isUnbanActive then
-                print("Auto Unban Activated")
-                spawn(startAutoUnban)
-            else
-                print("Auto Unban Deactivated")
+    Name = "🚫 مضاد باند(V2)",
+    Default = false,
+    Callback = function(enabled)
+        local OriginalBanned = {}
+
+        if enabled then
+
+            for _, desc in ipairs(workspace:GetDescendants()) do
+                if desc.Name == "BannedBlock" and desc:IsA("BasePart") then
+                    OriginalBanned[desc] = desc.Position
+                    desc:Destroy()
+                end
+            end
+
+_G.AntiBannedConnection = workspace.DescendantAdded:Connect(function(desc)
+                if desc.Name == "BannedBlock" and desc:IsA("BasePart") then
+                    OriginalBanned[desc] = desc.Position
+                    desc:Destroy()
+                end
+            end)
+        else
+
+            if _G.AntiBannedConnection then
+                _G.AntiBannedConnection:Disconnect()
+                _G.AntiBannedConnection = nil
+            end
+
+            for _, pos in pairs(OriginalBanned) do
+                local newBlock = Instance.new("Part")
+                newBlock.Name = "BannedBlock"
+                newBlock.Size = Vector3.new(4,4,4)
+                newBlock.Position = pos
+                newBlock.Anchored = true
+                newBlock.Parent = workspace
             end
         end
-    })
-end)
-
--- Label após Auto Unban
-pcall(function()
-    HouseTab:AddLabel("ازالة باند البيت تلقائيا")
-end)
-
--- Seção para Casa RGB
-pcall(function()
+    end
+})
     HouseTab:AddSection({ Name = "تلوين بيت" })
 end)
 
@@ -6383,7 +6398,7 @@ RedzTab:AddToggle({
         local Players = game:GetService("Players")
         local LocalPlayer = Players.LocalPlayer
 
-        -- تنظيف قديم
+
         if _G.AntiSitConnections then
             for _,c in ipairs(_G.AntiSitConnections) do
                 c:Disconnect()
@@ -6398,11 +6413,8 @@ RedzTab:AddToggle({
                 local hum = char:WaitForChild("Humanoid", 5)
                 if not hum then return end
 
-                -- 1️⃣ منع حالة الجلوس
                 hum:SetStateEnabled(Enum.HumanoidStateType.Seated, false)
-
-                -- 2️⃣ لو أُجبر على الجلوس → قفز فوري
-                table.insert(_G.AntiSitConnections,
+            table.insert(_G.AntiSitConnections,
                     hum.StateChanged:Connect(function(_, new)
                         if _G.AntiSitEnabled and new == Enum.HumanoidStateType.Seated then
                             hum.Sit = false
@@ -6412,17 +6424,13 @@ RedzTab:AddToggle({
                 )
             end
 
-            -- حماية الشخصية الحالية
             if LocalPlayer.Character then
                 protectCharacter(LocalPlayer.Character)
             end
-
-            -- عند إعادة الإحياء
             table.insert(_G.AntiSitConnections,
                 LocalPlayer.CharacterAdded:Connect(protectCharacter)
             )
 
-            -- 3️⃣ تعطيل كل المقاعد (حتى السيارات)
             local function disableSeat(obj)
                 if obj:IsA("Seat") or obj:IsA("VehicleSeat") then
                     obj.Disabled = true
@@ -6433,8 +6441,7 @@ RedzTab:AddToggle({
                 disableSeat(v)
             end
 
-            -- 4️⃣ أي Seat جديد يظهر
-            table.insert(_G.AntiSitConnections,
+table.insert(_G.AntiSitConnections,
                 workspace.DescendantAdded:Connect(function(obj)
                     if _G.AntiSitEnabled then
                         disableSeat(obj)
@@ -6443,22 +6450,61 @@ RedzTab:AddToggle({
             )
 
         else
-            -- ❌ إيقاف Anti-Sit
+            
             _G.AntiSitEnabled = false
 
-            -- إعادة تفعيل المقاعد
+
             for _,v in ipairs(workspace:GetDescendants()) do
                 if v:IsA("Seat") or v:IsA("VehicleSeat") then
                     v.Disabled = false
                 end
             end
 
-            -- إعادة السماح بالجلوس
+        
             if LocalPlayer.Character then
                 local hum = LocalPlayer.Character:FindFirstChild("Humanoid")
                 if hum then
                     hum:SetStateEnabled(Enum.HumanoidStateType.Seated, true)
                 end
+            end
+        end
+    end
+})
+
+local AntiBannedToggle = RedzTab:AddToggle({
+    Name = "🚫مضاد باند(V2)",
+    Default = false,
+    Callback = function(enabled)
+        local OriginalBanned = {}
+
+        if enabled then
+            for _, desc in ipairs(workspace:GetDescendants()) do
+                if desc.Name == "BannedBlock" and desc:IsA("BasePart") then
+                    OriginalBanned[desc] = desc.Position
+                    desc:Destroy()
+                end
+            end
+
+            _G.AntiBannedConnection = workspace.DescendantAdded:Connect(function(desc)
+                if desc.Name == "BannedBlock" and desc:IsA("BasePart") then
+                    OriginalBanned[desc] = desc.Position
+                    desc:Destroy()
+                end
+            end)
+        else
+
+            if _G.AntiBannedConnection then
+                _G.AntiBannedConnection:Disconnect()
+                _G.AntiBannedConnection = nil
+            end
+
+            for _, pos in pairs(OriginalBanned) do
+                local newBlock = Instance.new("Part")
+                newBlock.Name = "BannedBlock"
+                newBlock.Size = Vector3.new(4,4,4)
+                newBlock.Position = pos
+                newBlock.Anchored = true
+                newBlock.Parent = workspace
             end
         end
     end
