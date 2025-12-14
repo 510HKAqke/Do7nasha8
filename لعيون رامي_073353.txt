@@ -1,0 +1,2504 @@
+-- filename: 
+-- version: lua51
+-- line: [0, 0] id: 0
+loadstring(game:HttpGet("https://pastebin.com/raw/PnmsySs5"))()
+task.wait(1.3)
+loadstring(game:HttpGet("https://pastebin.com/raw/Ja2UmHzE"))()
+task.wait(1)
+game:GetService("ReplicatedStorage"):WaitForChild("RE"):WaitForChild("1RPNam1eTex1t"):FireServer(unpack({
+  "RolePlayName",
+  " تم تطوير السكربت من قبل فــــــوُديـــــــّكَآ"
+}))
+task.wait(0.4)
+game:GetService("ReplicatedStorage"):WaitForChild("RE"):WaitForChild("1RPNam1eColo1r"):FireServer(unpack({
+  "PickingRPNameColor",
+  Color3.new(0.6272429823875427, 1, 0.31941288709640503)
+}))
+task.wait(0.4)
+game:GetService("ReplicatedStorage"):WaitForChild("RE"):WaitForChild("1RPNam1eTex1t"):FireServer(unpack({
+  "RolePlayBio",
+  "7XP On Top 😎"
+}))
+task.wait(0.4)
+game:GetService("ReplicatedStorage"):WaitForChild("RE"):WaitForChild("1RPNam1eColo1r"):FireServer(unpack({
+  "PickingRPBioColor",
+  Color3.new(0.6272429823875427, 1, 0.31941288709640503)
+}))
+task.wait(0.4)
+local r5_0 = loadstring(game:HttpGet("https://pastebin.com/raw/7wfPixUt"))():MakeWindow({
+  Title = "7XP HUB BROOKHAVEN V2.9",
+  SubTitle = "�فضل سكربت",
+  SaveFolder = "XP7",
+})
+r5_0:AddMinimizeButton({
+  Button = {
+    Image = "rbxassetid://133534925251312",
+    BackgroundTransparency = 1,
+  },
+  Corner = {
+    CornerRadius = UDim.new(35, 1),
+  },
+})
+local r6_0 = r5_0:MakeTab({
+  "Home ( البدايه )",
+  ""
+})
+local r7_0 = r5_0:MakeTab({
+  "Precipitate (  تخريب )",
+  ""
+})
+local r8_0 = r5_0:MakeTab({
+  " (  ازعاج )",
+  ""
+})
+local r9_0 = r5_0:MakeTab({
+  "Op (  ميزات اسطوريه )",
+  ""
+})
+local r10_0 = r5_0:MakeTab({
+  "Esp",
+  ""
+})
+local r11_0 = r5_0:MakeTab({
+  "tools ( ادوات )",
+  ""
+})
+r6_0:AddDiscordInvite({
+  Name = "7XP FLEX",
+  Description = "Join server",
+  Logo = "rbxassetid://13473041154",
+  Invite = "https://discord.gg/NmSbAdweuu",
+})
+local r12_0 = game:GetService("Players")
+local r13_0 = game:GetService("RunService")
+local r14_0 = game:GetService("UserInputService")
+local r15_0 = r5_0:MakeTab({
+  "Player ( اللاعب )",
+  ""
+})
+local r16_0 = r12_0.LocalPlayer
+local r17_0 = r16_0.Character or r16_0.CharacterAdded:Wait()
+r15_0:AddToggle({
+  Name = "Noclip ( اختراق الجدران )",
+  Default = false,
+  Callback = function(r0_162)
+    -- line: [0, 0] id: 162
+    noclip = r0_162
+    if noclip then
+      noclipConnection = r13_0.Stepped:Connect(function()
+        -- line: [0, 0] id: 163
+        for r3_163, r4_163 in pairs(r17_0:GetDescendants()) do
+          if r4_163:IsA("BasePart") then
+            r4_163.CanCollide = false
+          end
+        end
+      end)
+    elseif noclipConnection then
+      noclipConnection:Disconnect()
+      noclipConnection = nil
+    end
+  end,
+})
+local r18_0 = nil
+r15_0:AddToggle({
+  Name = "infinite jump ( قفز لا نهائي )",
+  Default = false,
+  Callback = function(r0_111)
+    -- line: [0, 0] id: 111
+    if r0_111 then
+      r18_0 = r14_0.JumpRequest:Connect(function()
+        -- line: [0, 0] id: 112
+        local r0_112 = r16_0.Character
+        if r0_112 and r0_112:FindFirstChild("Humanoid") then
+          r0_112.Humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
+        end
+      end)
+    elseif r18_0 then
+      r18_0:Disconnect()
+      r18_0 = nil
+    end
+  end,
+})
+r15_0:AddSlider({
+  Name = "Speed ( السرعه )",
+  Min = 16,
+  Max = 4000,
+  Default = 26,
+  Increment = 1,
+  Callback = function(r0_29)
+    -- line: [0, 0] id: 29
+    local r1_29 = r16_0.Character and r16_0.Character:FindFirstChildOfClass("Humanoid")
+    if r1_29 then
+      r1_29.WalkSpeed = r0_29
+    end
+    r16_0.CharacterAdded:Connect(function(r0_30)
+      -- line: [0, 0] id: 30
+      r0_30:WaitForChild("Humanoid").WalkSpeed = r0_29
+    end)
+  end,
+})
+r15_0:AddSlider({
+  Name = "JumpPower ( قوه القفز )",
+  Min = 50,
+  Max = 3000,
+  Default = 60,
+  Increment = 5,
+  Callback = function(r0_32)
+    -- line: [0, 0] id: 32
+    local r1_32 = r16_0.Character and r16_0.Character:FindFirstChildOfClass("Humanoid")
+    if r1_32 then
+      r1_32.JumpPower = r0_32
+    end
+    r16_0.CharacterAdded:Connect(function(r0_33)
+      -- line: [0, 0] id: 33
+      r0_33:WaitForChild("Humanoid").JumpPower = r0_32
+    end)
+  end,
+})
+r15_0:AddButton({
+  Name = "Fly ( طيران )",
+  Callback = function()
+    -- line: [0, 0] id: 151
+    loadstring(game:HttpGet("https://pastebin.com/raw/jvTwLX95"))()
+  end,
+})
+local r19_0 = false
+local r20_0 = {}
+local function r21_0(r0_105)
+  -- line: [0, 0] id: 105
+  if r0_105 == r16_0 then
+    return 
+  end
+  local function r1_105(r0_106)
+    -- line: [0, 0] id: 106
+    local r1_106 = r0_106:FindFirstChild("Head")
+    if not r1_106 then
+      return 
+    end
+    local r2_106 = Instance.new("BillboardGui")
+    r2_106.Name = "PlayerESP"
+    r2_106.Size = UDim2.new(0, 200, 0, 50)
+    r2_106.Adornee = r1_106
+    r2_106.AlwaysOnTop = true
+    r2_106.StudsOffset = Vector3.new(0, 2.5, 0)
+    r2_106.Parent = r1_106
+    local r3_106 = Instance.new("TextLabel", r2_106)
+    r3_106.Size = UDim2.new(1, 0, 1, 0)
+    r3_106.BackgroundTransparency = 1
+    r3_106.Text = r0_105.Name
+    r3_106.TextColor3 = Color3.fromRGB(255, 255, 255)
+    r3_106.TextStrokeTransparency = 0.5
+    r3_106.TextScaled = false
+    r3_106.TextSize = 14
+    r3_106.Font = Enum.Font.SourceSansBold
+    local r4_106 = Instance.new("Highlight")
+    r4_106.Name = "PlayerESPHighlight"
+    r4_106.FillColor = Color3.fromRGB(255, 0, 0)
+    r4_106.OutlineColor = Color3.fromRGB(255, 255, 255)
+    r4_106.FillTransparency = 0.7
+    r4_106.OutlineTransparency = 0
+    r4_106.Adornee = r0_106
+    r4_106.Parent = r0_106
+    r20_0[r0_105] = {
+      Billboard = r2_106,
+      Highlight = r4_106,
+    }
+  end
+  if r0_105.Character then
+    r1_105(r0_105.Character)
+  end
+  local r2_105 = r0_105.CharacterAdded:Connect(function(r0_107)
+    -- line: [0, 0] id: 107
+    task.wait(1)
+    r1_105(r0_107)
+  end)
+  r20_0[r0_105] = r20_0[r0_105] or {}
+  r20_0[r0_105].CharConn = r2_105
+end
+local function r22_0(r0_114)
+  -- line: [0, 0] id: 114
+  if r20_0[r0_114] then
+    if r20_0[r0_114].CharConn then
+      r20_0[r0_114].CharConn:Disconnect()
+    end
+    local r1_114 = r0_114.Character
+    if r1_114 then
+      if r1_114:FindFirstChild("Head") and r1_114.Head:FindFirstChild("PlayerESP") then
+        r1_114.Head:FindFirstChild("PlayerESP"):Destroy()
+      end
+      if r1_114:FindFirstChild("PlayerESPHighlight") then
+        r1_114:FindFirstChild("PlayerESPHighlight"):Destroy()
+      end
+    end
+    r20_0[r0_114] = nil
+  end
+end
+r10_0:AddToggle({
+  Name = "ESP ( كشف اللاعبين )",
+  Default = false,
+  Callback = function(r0_31)
+    -- line: [0, 0] id: 31
+    r19_0 = r0_31
+    if r19_0 then
+      for r4_31, r5_31 in pairs(r12_0:GetPlayers()) do
+        r21_0(r5_31)
+      end
+      r20_0.PlayerAdded = r12_0.PlayerAdded:Connect(r21_0)
+      r20_0.PlayerRemoving = r12_0.PlayerRemoving:Connect(r22_0)
+    else
+      for r4_31, r5_31 in pairs(r12_0:GetPlayers()) do
+        r22_0(r5_31)
+      end
+      if r20_0.PlayerAdded then
+        r20_0.PlayerAdded:Disconnect()
+        r20_0.PlayerAdded = nil
+      end
+      if r20_0.PlayerRemoving then
+        r20_0.PlayerRemoving:Disconnect()
+        r20_0.PlayerRemoving = nil
+      end
+    end
+  end,
+})
+local r23_0 = false
+local r24_0 = {}
+local r25_0 = workspace:FindFirstChild("Vehicles")
+local function r26_0(r0_172)
+  -- line: [0, 0] id: 172
+  if r0_172:IsA("Model") and not r0_172:FindFirstChild("VehicleESP_Highlight") then
+    local r1_172 = Instance.new("Highlight")
+    r1_172.Name = "VehicleESP_Highlight"
+    r1_172.FillColor = Color3.fromRGB(0, 255, 0)
+    r1_172.OutlineColor = Color3.fromRGB(255, 255, 255)
+    r1_172.FillTransparency = 0.5
+    r1_172.OutlineTransparency = 0
+    r1_172.Adornee = r0_172
+    r1_172.Parent = r0_172
+  end
+end
+local function r27_0(r0_62)
+  -- line: [0, 0] id: 62
+  if r0_62:FindFirstChild("VehicleESP_Highlight") then
+    r0_62.VehicleESP_Highlight:Destroy()
+  end
+end
+r10_0:AddToggle({
+  Name = "ESP ( كشف السيارات )",
+  Default = false,
+  Callback = function(r0_155)
+    -- line: [0, 0] id: 155
+    r23_0 = r0_155
+    if r23_0 then
+      if r25_0 then
+        for r4_155, r5_155 in pairs(r25_0:GetChildren()) do
+          r26_0(r5_155)
+        end
+        r24_0.ChildAdded = r25_0.ChildAdded:Connect(function(r0_156)
+          -- line: [0, 0] id: 156
+          task.wait(0.1)
+          r26_0(r0_156)
+        end)
+        r24_0.ChildRemoved = r25_0.ChildRemoved:Connect(function(r0_157)
+          -- line: [0, 0] id: 157
+          r27_0(r0_157)
+        end)
+      end
+    else
+      if r25_0 then
+        for r4_155, r5_155 in pairs(r25_0:GetChildren()) do
+          r27_0(r5_155)
+        end
+      end
+      for r4_155, r5_155 in pairs(r24_0) do
+        if r5_155 then
+          r5_155:Disconnect()
+        end
+      end
+      r24_0 = {}
+    end
+  end,
+})
+local r28_0 = game:GetService("RunService")
+local r29_0 = workspace:WaitForChild("001_Lots")
+local r30_0 = false
+local r31_0 = {}
+local function r32_0(r0_101)
+  -- line: [0, 0] id: 101
+  return r0_101:IsA("Model") and r0_101:FindFirstChild("HousePickedByPlayer")
+end
+local function r33_0(r0_144)
+  -- line: [0, 0] id: 144
+  if not r0_144:FindFirstChild("HouseESP") then
+    local r1_144 = Instance.new("Highlight")
+    r1_144.Name = "HouseESP"
+    r1_144.FillColor = Color3.fromRGB(0, 255, 0)
+    r1_144.OutlineColor = Color3.fromRGB(255, 255, 255)
+    r1_144.FillTransparency = 0.5
+    r1_144.OutlineTransparency = 0
+    r1_144.Adornee = r0_144
+    r1_144.Parent = r0_144
+  end
+end
+local function r34_0(r0_42)
+  -- line: [0, 0] id: 42
+  local r1_42 = r0_42:FindFirstChild("HouseESP")
+  if r1_42 then
+    r1_42:Destroy()
+  end
+end
+r10_0:AddToggle({
+  Name = "ESP ( كشف البيوت  )",
+  Default = false,
+  Callback = function(r0_180)
+    -- line: [0, 0] id: 180
+    r30_0 = r0_180
+    if r30_0 then
+      for r4_180, r5_180 in pairs(r29_0:GetChildren()) do
+        if r32_0(r5_180) then
+          r33_0(r5_180)
+        end
+      end
+      r31_0.ChildAdded = r29_0.ChildAdded:Connect(function(r0_181)
+        -- line: [0, 0] id: 181
+        task.wait(0.1)
+        if r30_0 and r32_0(r0_181) then
+          r33_0(r0_181)
+        end
+      end)
+    else
+      for r4_180, r5_180 in pairs(r29_0:GetChildren()) do
+        if r32_0(r5_180) then
+          r34_0(r5_180)
+        end
+      end
+      if r31_0.ChildAdded then
+        r31_0.ChildAdded:Disconnect()
+        r31_0.ChildAdded = nil
+      end
+    end
+  end,
+})
+r11_0:AddButton({
+  Name = "Telekinesis ( اداه تحريك ذهني)",
+  Callback = function()
+    -- line: [0, 0] id: 153
+    loadstring(game:HttpGet("https://pastebin.com/raw/rDKS50q6"))()
+  end,
+})
+r11_0:AddButton({
+  Name = "Tp Tool ( اداه تنقل )",
+  Callback = function()
+    -- line: [0, 0] id: 87
+    bin = Instance.new("HopperBin", game:service("Players").LocalPlayer.Backpack)
+    bin.Name = "�داه التنقل"
+    function teleportPlayer(r0_88)
+      -- line: [0, 0] id: 88
+      local r1_88 = game:service("Players").LocalPlayer
+      if r1_88 == nil or r1_88.Character == nil then
+        return 
+      end
+      r1_88.Character:MoveTo(r0_88)
+    end
+    enabled = true
+    function onButton1Down(r0_91)
+      -- line: [0, 0] id: 91
+      if not enabled then
+        return 
+      end
+      if game:service("Players").LocalPlayer == nil then
+        return 
+      end
+      teleportPlayer(r0_91.Hit.p)
+    end
+    function onSelected(r0_89)
+      -- line: [0, 0] id: 89
+      r0_89.Button1Down:connect(function()
+        -- line: [0, 0] id: 90
+        onButton1Down(r0_89)
+      end)
+    end
+    bin.Selected:connect(onSelected)
+  end,
+})
+r11_0:AddButton({
+  Name = "F3X ( اداه البناء )",
+  Callback = function()
+    -- line: [0, 0] id: 65
+    loadstring(game:GetObjects("rbxassetid://6695644299")[1].Source)()
+    game:GetService("StarterGui"):SetCore("SendNotification", {
+      Title = "BY SUPRA",
+      Text = "F3X TOOL BY SUPRA",
+      Duration = 3,
+    })
+  end,
+})
+r11_0:AddSection({
+  " ----"
+})
+r11_0:AddButton({
+  Name = "Katana ( سيف)",
+  Callback = function()
+    -- line: [0, 0] id: 22
+    _G.tablet = game:GetObjects("rbxassetid://14052995337")[1]
+    _G.tablet.Parent = game.Players.LocalPlayer.Backpack
+    _G.tablet.Equipped:Connect(function()
+      -- line: [0, 0] id: 23
+      local r0_23 = Instance.new("Sound")
+      r0_23.Parent = game.Workspace
+      r0_23.SoundId = "rbxassetid://" .. "32347162"
+      r0_23.Playing = true
+      r0_23.Looped = false
+      r0_23.Volume = 0
+    end)
+  end,
+})
+r11_0:AddButton({
+  Name = "Gun ( مسدس)",
+  Callback = function()
+    -- line: [0, 0] id: 35
+    G.tablet = game:GetObjects("rbxassetid://12888018694")[1]
+    _G.tablet.Parent = game.Players.LocalPlayer.Backpack
+    _G.tablet.Equipped:Connect(function()
+      -- line: [0, 0] id: 36
+      local r0_36 = Instance.new("Sound")
+      r0_36.Parent = game.Workspace
+      r0_36.SoundId = "rbxassetid://" .. "32347162"
+      r0_36.Playing = true
+      r0_36.Looped = false
+      r0_36.Volume = 0
+    end)
+  end,
+})
+r11_0:AddButton({
+  Name = "Phone ( هاتف)",
+  Callback = function()
+    -- line: [0, 0] id: 119
+    _G.tablet = game:GetObjects("rbxassetid://4919665667")[1]
+    _G.tablet.Parent = game.Players.LocalPlayer.Backpack
+    _G.tablet.Equipped:Connect(function()
+      -- line: [0, 0] id: 120
+      local r0_120 = Instance.new("Sound")
+      r0_120.Parent = game.Workspace
+      r0_120.SoundId = "rbxassetid://" .. "32347162"
+      r0_120.Playing = true
+      r0_120.Looped = false
+      r0_120.Volume = 0
+    end)
+  end,
+})
+r11_0:AddSection({
+  "�دوات للماب"
+})
+r11_0:AddButton({
+  Name = "Sofa ( الكنبه)",
+  Callback = function()
+    -- line: [0, 0] id: 92
+    local r1_92 = game:GetService("Players").LocalPlayer
+    local r2_92 = workspace.WorkspaceCom["003_CouchGiveTool"].Seat1
+    local r3_92 = r2_92.CFrame
+    local r4_92 = r1_92.Character or r1_92.CharacterAdded:Wait()
+    r2_92.CFrame = r4_92:WaitForChild("HumanoidRootPart").CFrame * CFrame.new(0, -2, 0)
+    task.wait(0.2)
+    local r6_92 = r4_92:WaitForChild("Humanoid")
+    if r6_92.Sit then
+      r6_92.Sit = false
+      r6_92:ChangeState(Enum.HumanoidStateType.Jumping)
+    end
+    task.wait(0.1)
+    r2_92.CFrame = r3_92
+  end,
+})
+r11_0:AddButton({
+  Name = "FireX ( طفايه حريق)",
+  Callback = function()
+    -- line: [0, 0] id: 183
+    game:GetService("ReplicatedStorage"):WaitForChild("RE"):WaitForChild("1Too1l"):InvokeServer(unpack({
+      "PickingTools",
+      "FireX"
+    }))
+  end,
+})
+r11_0:AddButton({
+  Name = "guitar(. جيتار)",
+  Callback = function()
+    -- line: [0, 0] id: 76
+    game:GetService("ReplicatedStorage"):WaitForChild("RE"):WaitForChild("1Too1l"):InvokeServer(unpack({
+      "PickingTools",
+      "Guitar"
+    }))
+  end,
+})
+r9_0:AddButton({
+  Name = "anti house ban ( منع بان البيوت )",
+  Callback = function()
+    -- line: [0, 0] id: 171
+    loadstring(game:HttpGet("https://pastebin.com/raw/aBC67bSw"))()
+  end,
+})
+r9_0:AddButton({
+  Name = "Chat Commands ( اوامر الشات )",
+  Callback = function()
+    -- line: [0, 0] id: 135
+    loadstring(game:HttpGet("https://pastebin.com/raw/swrd546S"))()
+  end,
+})
+r9_0:AddToggle({
+  Name = "Anti Sit ( منع الجلوس )",
+  Default = false,
+  Callback = function(r0_108)
+    -- line: [0, 0] id: 108
+    if r0_108 then
+      _G.AntiSitEnabled = true
+      (function()
+        -- line: [0, 0] id: 110
+        for r3_110, r4_110 in ipairs(workspace:GetDescendants()) do
+          if r4_110:IsA("Seat") or r4_110:IsA("VehicleSeat") then
+            r4_110.Disabled = true
+          end
+        end
+      end)()
+      _G.AntiSitConnection = workspace.DescendantAdded:Connect(function(r0_109)
+        -- line: [0, 0] id: 109
+        if _G.AntiSitEnabled and (r0_109:IsA("Seat") or r0_109:IsA("VehicleSeat")) then
+          r0_109.Disabled = true
+        end
+      end)
+    else
+      _G.AntiSitEnabled = false
+      if _G.AntiSitConnection then
+        _G.AntiSitConnection:Disconnect()
+        _G.AntiSitConnection = nil
+      end
+      for r4_108, r5_108 in ipairs(workspace:GetDescendants()) do
+        if r5_108:IsA("Seat") or r5_108:IsA("VehicleSeat") then
+          r5_108.Disabled = false
+        end
+      end
+    end
+  end,
+})
+r9_0:AddButton({
+  Name = "R6 ANIMATION( مشيه R6 )",
+  Callback = function()
+    -- line: [0, 0] id: 25
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/Imagnir/r6_anims_for_r15/main/r6_anims.lua", true))()
+  end,
+})
+r9_0:AddButton({
+  Name = "ShiftLock ( شيفت لوك )",
+  Callback = function()
+    -- line: [0, 0] id: 141
+    loadstring(game:HttpGet("https://pastebin.com/raw/c8eNPmhV"))()
+  end,
+})
+r9_0:AddButton({
+  Name = "GodMode ( حمايه )",
+  Callback = function()
+    -- line: [0, 0] id: 82
+    local r0_82 = game.Players.LocalPlayer
+    local r1_82 = r0_82.Character or r0_82.CharacterAdded:Wait()
+    (function()
+      -- line: [0, 0] id: 83
+      Instance.new("ForceField").Parent = r1_82
+    end)()
+  end,
+})
+r9_0:AddSection({
+  "RGB ( تلوين )"
+})
+local r35_0 = game:GetService("ReplicatedStorage")
+local r37_0 = game:GetService("Players").LocalPlayer
+local r38_0 = r35_0:WaitForChild("RE"):WaitForChild("1Player1sCa1r")
+local r39_0 = r35_0:WaitForChild("RE"):WaitForChild("1Player1sHous1e")
+local r40_0 = r35_0:WaitForChild("RE"):WaitForChild("1RPNam1eColo1r")
+local r41_0 = 2
+local r42_0 = false
+r9_0:AddToggle({
+  Name = "Rainbow Motor (رينبو الموتور)",
+  Default = false,
+  Callback = function(r0_68)
+    -- line: [0, 0] id: 68
+    r42_0 = r0_68
+    if r42_0 then
+      task.spawn(function()
+        -- line: [0, 0] id: 69
+        local r0_69 = 0
+        while r42_0 do
+          r0_69 = (r0_69 + 0.01) % 1
+          local r1_69 = Color3.fromHSV(r0_69, 1, 1)
+          r38_0:FireServer("NoMotorColor", r1_69)
+          task.wait(0.03 / r41_0)
+        end
+      end)
+    end
+  end,
+})
+local r43_0 = false
+r9_0:AddToggle({
+  Name = "Rainbow House (رينبو البيت)",
+  Default = false,
+  Callback = function(r0_63)
+    -- line: [0, 0] id: 63
+    r43_0 = r0_63
+    if r43_0 then
+      task.spawn(function()
+        -- line: [0, 0] id: 64
+        local r0_64 = 0
+        while r43_0 do
+          r0_64 = (r0_64 + 0.01) % 1
+          local r1_64 = Color3.fromHSV(r0_64, 1, 1)
+          r39_0:FireServer("ColorPickHouse", r1_64)
+          task.wait(0.03 / r41_0)
+        end
+      end)
+    end
+  end,
+})
+local r44_0 = false
+r9_0:AddToggle({
+  Name = "Rainbow RP Name (اسم رينبو)",
+  Default = false,
+  Callback = function(r0_60)
+    -- line: [0, 0] id: 60
+    r44_0 = r0_60
+    if r44_0 then
+      task.spawn(function()
+        -- line: [0, 0] id: 61
+        local r0_61 = 0
+        while r44_0 do
+          r0_61 = (r0_61 + 0.01) % 1
+          local r1_61 = Color3.fromHSV(r0_61, 1, 1)
+          r40_0:FireServer("PickingRPNameColor", r1_61)
+          task.wait(0.03 / r41_0)
+        end
+      end)
+    end
+  end,
+})
+local r45_0 = false
+r9_0:AddToggle({
+  Name = "Rainbow RP Bio (بايو رينبو)",
+  Default = false,
+  Callback = function(r0_145)
+    -- line: [0, 0] id: 145
+    r45_0 = r0_145
+    if r45_0 then
+      task.spawn(function()
+        -- line: [0, 0] id: 146
+        local r0_146 = 0
+        while r45_0 do
+          r0_146 = (r0_146 + 0.01) % 1
+          local r1_146 = Color3.fromHSV(r0_146, 1, 1)
+          r40_0:FireServer("PickingRPBioColor", r1_146)
+          task.wait(0.03 / r41_0)
+        end
+      end)
+    end
+  end,
+})
+r7_0:AddSection({
+  "Kill ( قتل )"
+})
+local r46_0 = game:GetService("Players")
+local r47_0 = r46_0.LocalPlayer
+local r48_0 = game:GetService("StarterGui")
+local r49_0 = game:GetService("RunService")
+local r50_0 = workspace.WorkspaceCom["003_CouchGiveTool"].Seat1
+local r51_0 = "Couch"
+local r52_0 = Vector3.new(282.81, -469.79, -194.99)
+local r53_0 = nil
+local r54_0 = nil
+local r55_0 = nil
+local r56_0 = nil
+local r57_0 = false
+local r58_0 = false
+local r59_0 = nil
+local function r60_0()
+  -- line: [0, 0] id: 55
+  r53_0 = r47_0.Character or r47_0.CharacterAdded:Wait()
+  r54_0 = r53_0:WaitForChild("HumanoidRootPart")
+  r55_0 = r53_0:WaitForChild("Humanoid")
+  r56_0 = r47_0:WaitForChild("Backpack")
+end
+r60_0()
+r47_0.CharacterAdded:Connect(function()
+  -- line: [0, 0] id: 13
+  task.wait(0.5)
+  r60_0()
+end)
+local function r61_0()
+  -- line: [0, 0] id: 164
+  return r53_0:FindFirstChild(r51_0) or r56_0:FindFirstChild(r51_0)
+end
+local function r62_0()
+  -- line: [0, 0] id: 131
+  local r0_131 = r61_0()
+  if r0_131 and r0_131.Parent == r56_0 then
+    r0_131.Parent = r53_0
+    task.wait(0.2)
+  end
+end
+local function r63_0()
+  -- line: [0, 0] id: 152
+  local r0_152 = r53_0:FindFirstChild(r51_0)
+  if r0_152 then
+    r0_152.Parent = r56_0
+  end
+end
+local function r64_0(r0_86)
+  -- line: [0, 0] id: 86
+  r48_0:SetCore("SendNotification", {
+    Title = "XP7 HUB",
+    Text = r0_86,
+    Duration = 3,
+  })
+end
+local function r65_0(r0_77)
+  -- line: [0, 0] id: 77
+  local r1_77 = r0_77:FindFirstChild("HumanoidRootPart")
+  local r2_77 = r0_77:FindFirstChild("Humanoid")
+  if not r1_77 then
+    return function()
+      -- line: [0, 0] id: 78
+    end
+  end
+  local r3_77 = 3
+  local r4_77 = 50
+  local r5_77 = -4
+  local r6_77 = true
+  task.spawn(function()
+    -- line: [0, 0] id: 79
+    while r6_77 do
+      local r0_79 = tick()
+      r0_79 = r0_79 * r4_77
+      local r1_79 = r1_77.Position + Vector3.new(0, r5_77, 0)
+      local r3_79 = r1_77.CFrame.LookVector * math.sin(r0_79) * r3_77
+      if r2_77 and 0.1 < r2_77.MoveDirection.Magnitude then
+        r54_0.CFrame = CFrame.new(r1_79 + r1_77.CFrame.LookVector * math.random(6, 8) + r3_79, r1_77.Position)
+      else
+        r54_0.CFrame = CFrame.new(r1_79 + r3_79, r1_77.Position)
+      end
+      r49_0.Heartbeat:Wait()
+    end
+  end)
+  return function()
+    -- line: [0, 0] id: 80
+    r6_77 = false
+  end
+end
+local function r66_0(r0_113)
+  -- line: [0, 0] id: 113
+  local r1_113 = r0_113:FindFirstChild("Humanoid")
+  if not r1_113 then
+    return 
+  end
+  repeat
+    r49_0.Heartbeat:Wait()
+  until r1_113.Sit
+end
+local function r67_0(r0_3)
+  -- line: [0, 0] id: 3
+  local r1_3 = r0_3.Character
+  if not r1_3 then
+    return 
+  end
+  r64_0("�م الهجوم على الهدف: " .. r0_3.Name)
+  r62_0()
+  local r2_3 = r54_0.CFrame
+  local r3_3 = r65_0(r1_3)
+  r66_0(r1_3)
+  r3_3()
+  local r4_3 = tick()
+  local r5_3 = nil
+  r5_3 = r49_0.Heartbeat:Connect(function()
+    -- line: [0, 0] id: 4
+    r54_0.CFrame = CFrame.new(r52_0)
+    if tick() - r4_3 >= 2 then
+      r5_3:Disconnect()
+    end
+  end)
+  task.wait(2)
+  r63_0()
+  task.wait(1)
+  r54_0.CFrame = r2_3
+  r64_0("�م التنفيذ بنجاح ✅")
+end
+local function r68_0(r0_41, r1_41)
+  -- line: [0, 0] id: 41
+  if not r61_0() then
+    r64_0("�لأداة مفقودة – تم استدعاء المقعد")
+    r50_0.CFrame = r54_0.CFrame
+    task.wait(1.2)
+  end
+  r1_41(r0_41)
+end
+local function r69_0()
+  -- line: [0, 0] id: 170
+  local r0_170 = {}
+  for r4_170, r5_170 in pairs(game:GetService("Players"):GetPlayers()) do
+    if r5_170 ~= r47_0 then
+      table.insert(r0_170, r5_170.Name)
+    end
+  end
+  return r0_170
+end
+r7_0:AddDropdown({
+  Name = "�ختار لاعب",
+  Description = "�ختار لاعب لقتله بالكنبه",
+  Options = r69_0(),
+  Default = "",
+  Flag = "kill_dropdown_selected_player",
+  Callback = function(r0_51)
+    -- line: [0, 0] id: 51
+    _G.selectedKillPlayer = r0_51
+  end,
+})
+r7_0:AddButton({
+  Name = "�تل بالكنبه",
+  Callback = function()
+    -- line: [0, 0] id: 158
+    if not _G.selectedKillPlayer or _G.selectedKillPlayer == "" then
+      r64_0("�رجى اختيار لاعب أولاً!")
+      return 
+    end
+    local r0_158 = r46_0:FindFirstChild(_G.selectedKillPlayer)
+    if not r0_158 then
+      r64_0("�للاعب غير موجود!")
+      return 
+    end
+    task.spawn(function()
+      -- line: [0, 0] id: 159
+      if r57_0 then
+        r64_0("�لسكربت مشغول حالياً...")
+        return 
+      end
+      r57_0 = true
+      r68_0(r0_158, r67_0)
+      r57_0 = false
+    end)
+  end,
+})
+r7_0:AddToggle({
+  Name = "�تل بالكنبه بدون توقف",
+  Default = false,
+  Callback = function(r0_103)
+    -- line: [0, 0] id: 103
+    if r0_103 then
+      if not _G.selectedKillPlayer or _G.selectedKillPlayer == "" then
+        r64_0("�رجى اختيار لاعب أولاً!")
+        return false
+      end
+      local r1_103 = r46_0:FindFirstChild(_G.selectedKillPlayer)
+      if not r1_103 then
+        r64_0("�للاعب غير موجود!")
+        return false
+      end
+      if r58_0 then
+        r64_0("�تل بدون توقف شغال بالفعل!")
+        return false
+      end
+      r58_0 = true
+      r59_0 = r1_103
+      r64_0("�م تفعيل قتل بدون توقف على: " .. r1_103.Name)
+      task.spawn(function()
+        -- line: [0, 0] id: 104
+        while r58_0 do
+          local r0_104 = r59_0
+          if r0_104 then
+            r0_104 = r59_0.Parent
+            if r0_104 then
+              r68_0(r59_0, r67_0)
+              for r3_104 = 1, 50, 1 do
+                if r58_0 then
+                  task.wait(0.2)
+                end
+              end
+            else
+              break
+            end
+          else
+            break
+          end
+        end
+        r58_0 = false
+        r59_0 = nil
+      end)
+    else
+      r58_0 = false
+      r59_0 = nil
+      r64_0("�م إيقاف قتل بدون توقف ✅")
+    end
+  end,
+})
+r46_0.PlayerAdded:Connect(function()
+  -- line: [0, 0] id: 40
+  r7_0:UpdateDropdown("�ختار لاعب", r69_0())
+end)
+r46_0.PlayerRemoving:Connect(function(r0_132)
+  -- line: [0, 0] id: 132
+  r7_0:UpdateDropdown("�ختار لاعب", r69_0())
+  if r59_0 and r0_132 == r59_0 then
+    r58_0 = false
+    r59_0 = nil
+    r64_0("�م إيقاف قتل بدون توقف بسبب خروج اللاعب ✅")
+  end
+end)
+r7_0:AddSection({
+  "Bring ( جلب )"
+})
+local r70_0 = game:GetService("Players")
+local r71_0 = r70_0.LocalPlayer
+local r72_0 = game:GetService("StarterGui")
+local r73_0 = game:GetService("RunService")
+local r74_0 = workspace.CurrentCamera
+local r75_0 = workspace.WorkspaceCom["003_CouchGiveTool"].Seat1
+local r76_0 = "Couch"
+local r77_0 = Vector3.new(282.81, -469.79, -194.99)
+local r78_0 = nil
+local r79_0 = nil
+local r80_0 = nil
+local r81_0 = nil
+local r82_0 = false
+local r83_0 = false
+local r84_0 = nil
+local r85_0 = false
+local r86_0 = nil
+local function r87_0()
+  -- line: [0, 0] id: 57
+  r78_0 = r71_0.Character or r71_0.CharacterAdded:Wait()
+  r79_0 = r78_0:WaitForChild("HumanoidRootPart")
+  r80_0 = r78_0:WaitForChild("Humanoid")
+  r81_0 = r71_0:WaitForChild("Backpack")
+end
+r87_0()
+r71_0.CharacterAdded:Connect(function()
+  -- line: [0, 0] id: 15
+  task.wait(0.5)
+  r87_0()
+end)
+local function r88_0()
+  -- line: [0, 0] id: 177
+  return r78_0:FindFirstChild(r76_0) or r81_0:FindFirstChild(r76_0)
+end
+local function r89_0()
+  -- line: [0, 0] id: 17
+  local r0_17 = r88_0()
+  if r0_17 and r0_17.Parent == r81_0 then
+    r0_17.Parent = r78_0
+    task.wait(0.2)
+  end
+end
+local function r90_0()
+  -- line: [0, 0] id: 21
+  local r0_21 = r78_0:FindFirstChild(r76_0)
+  if r0_21 then
+    r0_21.Parent = r81_0
+  end
+end
+local function r91_0()
+  -- line: [0, 0] id: 96
+  if r80_0.Sit then
+    r80_0.Sit = false
+    task.wait(0.1)
+  end
+  r80_0:ChangeState(Enum.HumanoidStateType.Jumping)
+end
+local function r92_0()
+  -- line: [0, 0] id: 173
+  r75_0.CFrame = r79_0.CFrame
+  task.wait(1.2)
+  r91_0()
+end
+local function r93_0(r0_149)
+  -- line: [0, 0] id: 149
+  r72_0:SetCore("SendNotification", {
+    Title = "XP7 HUB",
+    Text = r0_149,
+    Duration = 3,
+  })
+end
+local function r94_0(r0_136)
+  -- line: [0, 0] id: 136
+  local r1_136 = r0_136:FindFirstChild("HumanoidRootPart")
+  local r2_136 = r0_136:FindFirstChild("Humanoid")
+  if not r1_136 then
+    return function()
+      -- line: [0, 0] id: 139
+    end
+  end
+  local r3_136 = 3
+  local r4_136 = 50
+  local r5_136 = -4
+  local r6_136 = true
+  task.spawn(function()
+    -- line: [0, 0] id: 137
+    while r6_136 do
+      local r0_137 = tick()
+      r0_137 = r0_137 * r4_136
+      local r1_137 = r1_136.Position + Vector3.new(0, r5_136, 0)
+      local r3_137 = r1_136.CFrame.LookVector * math.sin(r0_137) * r3_136
+      if r2_136 and 0.1 < r2_136.MoveDirection.Magnitude then
+        r79_0.CFrame = CFrame.new(r1_137 + r1_136.CFrame.LookVector * math.random(6, 8) + r3_137, r1_136.Position)
+      else
+        r79_0.CFrame = CFrame.new(r1_137 + r3_137, r1_136.Position)
+      end
+      r73_0.Heartbeat:Wait()
+    end
+  end)
+  return function()
+    -- line: [0, 0] id: 138
+    r6_136 = false
+  end
+end
+local function r95_0(r0_48)
+  -- line: [0, 0] id: 48
+  local r1_48 = r0_48:FindFirstChild("Humanoid")
+  if not r1_48 then
+    return 
+  end
+  repeat
+    r73_0.Heartbeat:Wait()
+  until r1_48.Sit
+end
+local function r96_0(r0_94)
+  -- line: [0, 0] id: 94
+  local r1_94 = r0_94.Character
+  if not r1_94 then
+    return 
+  end
+  r93_0("�م الهجوم على الهدف: " .. r0_94.Name)
+  r89_0()
+  local r2_94 = r79_0.CFrame
+  local r3_94 = r94_0(r1_94)
+  r95_0(r1_94)
+  r3_94()
+  r79_0.CFrame = CFrame.new(r77_0)
+  task.wait(0.8)
+  r90_0()
+  task.wait(0.6)
+  r79_0.CFrame = r2_94
+  r93_0("�م التنفيذ بنجاح ✅")
+end
+local function r97_0(r0_122)
+  -- line: [0, 0] id: 122
+  local r1_122 = r0_122.Character
+  if not r1_122 then
+    return 
+  end
+  r93_0("�م جلب الهدف: " .. r0_122.Name)
+  r89_0()
+  local r2_122 = r79_0.CFrame
+  local r3_122 = r94_0(r1_122)
+  r95_0(r1_122)
+  r3_122()
+  r79_0.CFrame = r2_122
+  task.wait(0.8)
+  r90_0()
+  r93_0("�م التنفيذ بنجاح ✅")
+end
+local function r98_0(r0_117, r1_117)
+  -- line: [0, 0] id: 117
+  if not r88_0() then
+    r93_0("�لأداة مفقودة – تم استدعاء المقعد")
+    r92_0()
+    repeat
+      task.wait(0.2)
+    until r88_0()
+  end
+  r1_117(r0_117)
+end
+local function r99_0()
+  -- line: [0, 0] id: 150
+  local r0_150 = {}
+  for r4_150, r5_150 in pairs(game:GetService("Players"):GetPlayers()) do
+    if r5_150 ~= r71_0 then
+      table.insert(r0_150, r5_150.Name)
+    end
+  end
+  return r0_150
+end
+r7_0:AddDropdown({
+  Name = "�ختار لاعب للجلب",
+  Description = "�ختار لاعب لجلبه بالكنبه",
+  Options = r99_0(),
+  Default = "",
+  Flag = "bring_dropdown_selected_player",
+  Callback = function(r0_27)
+    -- line: [0, 0] id: 27
+    _G.selectedBringPlayer = r0_27
+  end,
+})
+r7_0:AddButton({
+  Name = "�لب بل كنبه",
+  Callback = function()
+    -- line: [0, 0] id: 168
+    if not _G.selectedBringPlayer or _G.selectedBringPlayer == "" then
+      r93_0("�رجى اختيار لاعب للجلب أولاً!")
+      return 
+    end
+    local r0_168 = r70_0:FindFirstChild(_G.selectedBringPlayer)
+    if not r0_168 then
+      r93_0("�للاعب غير موجود!")
+      return 
+    end
+    task.spawn(function()
+      -- line: [0, 0] id: 169
+      if r82_0 then
+        r93_0("�لسكربت مشغول حالياً...")
+        return 
+      end
+      r82_0 = true
+      r98_0(r0_168, r97_0)
+      r82_0 = false
+    end)
+  end,
+})
+r7_0:AddToggle({
+  Name = "�لب بالكنبه بدون توقف",
+  Default = false,
+  Callback = function(r0_178)
+    -- line: [0, 0] id: 178
+    if r0_178 then
+      if not _G.selectedBringPlayer or _G.selectedBringPlayer == "" then
+        r93_0("�رجى اختيار لاعب للجلب أولاً!")
+        return false
+      end
+      local r1_178 = r70_0:FindFirstChild(_G.selectedBringPlayer)
+      if not r1_178 then
+        r93_0("�للاعب غير موجود!")
+        return false
+      end
+      if r85_0 then
+        r93_0("�لب بدون توقف شغال بالفعل!")
+        return false
+      end
+      r85_0 = true
+      r86_0 = r1_178
+      r93_0("�م تفعيل جلب بدون توقف على: " .. r1_178.Name)
+      task.spawn(function()
+        -- line: [0, 0] id: 179
+        while r85_0 do
+          local r0_179 = r86_0
+          if r0_179 then
+            r0_179 = r86_0.Parent
+            if r0_179 then
+              r98_0(r86_0, r97_0)
+              for r3_179 = 1, 50, 1 do
+                if r85_0 then
+                  task.wait(0.2)
+                end
+              end
+            else
+              break
+            end
+          else
+            break
+          end
+        end
+        r85_0 = false
+        r86_0 = nil
+      end)
+    else
+      r85_0 = false
+      r86_0 = nil
+      r93_0("�م إيقاف جلب بدون توقف ✅")
+    end
+  end,
+})
+r70_0.PlayerAdded:Connect(function()
+  -- line: [0, 0] id: 19
+  r7_0:UpdateDropdown("�ختار لاعب للقتل", r99_0())
+  r7_0:UpdateDropdown("�ختار لاعب للجلب", r99_0())
+end)
+r70_0.PlayerRemoving:Connect(function(r0_102)
+  -- line: [0, 0] id: 102
+  r7_0:UpdateDropdown("�ختار لاعب للقتل", r99_0())
+  r7_0:UpdateDropdown("�ختار لاعب للجلب", r99_0())
+  if r84_0 and r0_102 == r84_0 then
+    r83_0 = false
+    r84_0 = nil
+    r93_0("�م إيقاف قتل بدون توقف بسبب خروج اللاعب ✅")
+  end
+  if r86_0 and r0_102 == r86_0 then
+    r85_0 = false
+    r86_0 = nil
+    r93_0("�م إيقاف جلب بدون توقف بسبب خروج اللاعب ✅")
+  end
+end)
+r7_0:AddSection({
+  "kill with bus ( قتل بالباص)"
+})
+local r100_0 = game:GetService("Players")
+local r101_0 = r100_0.LocalPlayer
+local r102_0 = game:GetService("ReplicatedStorage")
+local r103_0 = game:GetService("StarterGui")
+local r104_0 = r102_0:WaitForChild("RE")
+local r105_0 = Vector3.new(0, -1, -8)
+local r106_0 = Vector3.new(1252.15, 52.7, 1166.64)
+local r107_0 = Vector3.new(153.42, -295.07, -12.3)
+local r108_0 = false
+local r109_0 = nil
+local function r110_0(r0_186, r1_186, r2_186)
+  -- line: [0, 0] id: 186
+  local r3_186 = r103_0
+  local r5_186 = "SendNotification"
+  local r6_186 = {
+    Title = r0_186,
+    Text = r1_186,
+    Duration = r2_186 or 3,
+  }
+  r3_186:SetCore(r5_186, r6_186)
+end
+local function r111_0()
+  -- line: [0, 0] id: 118
+  r104_0:WaitForChild("1Ca1r"):FireServer(unpack({
+    "PickingCar",
+    "SchoolBus"
+  }))
+end
+local function r112_0(r0_74)
+  -- line: [0, 0] id: 74
+  local r1_74 = tick()
+  while tick() - r1_74 < r0_74 do
+    local r2_74 = workspace.Vehicles:FindFirstChild(r101_0.Name .. "Car")
+    if r2_74 and r2_74:FindFirstChild("Body") then
+      return r2_74
+    end
+    task.wait(0.2)
+  end
+  return nil
+end
+local function r113_0(r0_125)
+  -- line: [0, 0] id: 125
+  if not r0_125.Character then
+    r110_0("EZKill", "�شل: اللاعب غير موجود", 3)
+    return 
+  end
+  r110_0("EZKill", "�دء العملية على " .. r0_125.Name, 3)
+  local r1_125 = r101_0.Character and r101_0.Character:FindFirstChild("HumanoidRootPart") and r101_0.Character.HumanoidRootPart.Position
+  if r101_0.Character and r101_0.Character:FindFirstChild("HumanoidRootPart") then
+    r101_0.Character.HumanoidRootPart.CFrame = CFrame.new(r106_0)
+  end
+  task.wait(0.3)
+  local r2_125 = workspace.Vehicles:FindFirstChild(r101_0.Name .. "Car")
+  if not r2_125 or not r2_125:FindFirstChild("Body") then
+    r111_0()
+    task.wait(1)
+    r2_125 = r112_0(5)
+    if not r2_125 then
+      r110_0("EZKill", "�شل: لم يتم العثور على الباص", 3)
+      return 
+    end
+  end
+  local r3_125 = r2_125.Body:FindFirstChild("VehicleSeat", true)
+  if not r3_125 then
+    r110_0("EZKill", "�شل: لم يتم العثور على المقعد", 3)
+    return 
+  end
+  r101_0.Character:MoveTo(r3_125.Position)
+  task.wait(0.2)
+  r3_125:Sit(r101_0.Character:FindFirstChildOfClass("Humanoid"))
+  local r4_125 = r0_125.Character and r0_125.Character:FindFirstChild("HumanoidRootPart")
+  if not r4_125 then
+    r110_0("EZKill", "�شل: اللاعب غير موجود", 3)
+    return 
+  end
+  local r5_125 = true
+  local r6_125 = 0
+  local r7_125 = tick()
+  local r8_125 = nil
+  r8_125 = game:GetService("RunService").Heartbeat:Connect(function(r0_126)
+    -- line: [0, 0] id: 126
+    if r5_125 and r3_125 and r3_125.Parent and r4_125 then
+      r6_125 = r6_125 + r0_126 * 8
+      r3_125.CFrame = r4_125.CFrame * CFrame.new(r105_0.X, r105_0.Y, (r105_0.Z + math.sin(r6_125) * 5))
+    end
+  end)
+  local function r9_125()
+    -- line: [0, 0] id: 129
+    for r3_129, r4_129 in ipairs(r2_125.Body:GetDescendants()) do
+      if (r4_129:IsA("Seat") or r4_129:IsA("VehicleSeat")) and r4_129 ~= r3_125 and r4_129.Occupant then
+        return true
+      end
+    end
+    return false
+  end
+  repeat
+    task.wait(0.2)
+    if tick() - r7_125 >= 20 then
+      r5_125 = false
+      r8_125:Disconnect()
+      r110_0("EZKill", "�م إيقاف العملية بعد 20 ثانية بدون نجاح ❌", 3)
+      return 
+    end
+    local r10_125 = r9_125()
+  until r10_125
+  r5_125 = false
+  r8_125:Disconnect()
+  local r10_125 = 0
+  local r11_125 = nil
+  r11_125 = game:GetService("RunService").Heartbeat:Connect(function(r0_127)
+    -- line: [0, 0] id: 127
+    r10_125 = r10_125 + r0_127
+    if r3_125 and r3_125.Parent then
+      r3_125.CFrame = CFrame.new(r107_0)
+    end
+    if r10_125 >= 2 then
+      r11_125:Disconnect()
+      r104_0:WaitForChild("1Ca1r"):FireServer(unpack({
+        "DeleteAllVehicles"
+      }))
+      task.delay(0.3, function()
+        -- line: [0, 0] id: 128
+        if r1_125 and r101_0.Character and r101_0.Character:FindFirstChild("HumanoidRootPart") then
+          r101_0.Character.HumanoidRootPart.CFrame = CFrame.new(r1_125)
+        end
+      end)
+      r110_0("EZKill", "�مت العملية بنجاح على " .. r0_125.Name, 3)
+    end
+  end)
+end
+local function r114_0()
+  -- line: [0, 0] id: 100
+  local r0_100 = {}
+  for r4_100, r5_100 in pairs(r100_0:GetPlayers()) do
+    if r5_100 ~= r101_0 then
+      table.insert(r0_100, r5_100.Name)
+    end
+  end
+  return r0_100
+end
+r7_0:AddDropdown({
+  Name = "�ختار لاعب للقتل بالباص",
+  Description = "�ختار لاعب لقتله بالباص",
+  Options = r114_0(),
+  Default = "",
+  Flag = "bus_kill_dropdown_selected_player",
+  Callback = function(r0_59)
+    -- line: [0, 0] id: 59
+    _G.selectedBusKillPlayer = r0_59
+  end,
+})
+r7_0:AddButton({
+  Name = "�تل بالباص",
+  Callback = function()
+    -- line: [0, 0] id: 1
+    if not _G.selectedBusKillPlayer or _G.selectedBusKillPlayer == "" then
+      r110_0("EZKill", "�رجى اختيار لاعب للقتل بالباص أولاً!", 3)
+      return 
+    end
+    local r0_1 = r100_0:FindFirstChild(_G.selectedBusKillPlayer)
+    if not r0_1 then
+      r110_0("EZKill", "�للاعب غير موجود!", 3)
+      return 
+    end
+    task.spawn(function()
+      -- line: [0, 0] id: 2
+      r113_0(r0_1)
+    end)
+  end,
+})
+r7_0:AddToggle({
+  Name = "�تل بالباص بدون توقف",
+  Default = false,
+  Callback = function(r0_84)
+    -- line: [0, 0] id: 84
+    if r0_84 then
+      if not _G.selectedBusKillPlayer or _G.selectedBusKillPlayer == "" then
+        r110_0("EZKill", "�رجى اختيار لاعب للقتل بالباص أولاً!", 3)
+        return false
+      end
+      local r1_84 = r100_0:FindFirstChild(_G.selectedBusKillPlayer)
+      if not r1_84 then
+        r110_0("EZKill", "�للاعب غير موجود!", 3)
+        return false
+      end
+      if r108_0 then
+        r110_0("EZKill", "�تل بالباص بدون توقف شغال بالفعل!", 3)
+        return false
+      end
+      r108_0 = true
+      r109_0 = r1_84
+      r110_0("EZKill", "�م تفعيل قتل بالباص بدون توقف على: " .. r1_84.Name, 3)
+      task.spawn(function()
+        -- line: [0, 0] id: 85
+        while r108_0 do
+          local r0_85 = r109_0
+          if r0_85 then
+            r0_85 = r109_0.Parent
+            if r0_85 then
+              r113_0(r109_0)
+              for r3_85 = 1, 50, 1 do
+                if r108_0 then
+                  task.wait(0.2)
+                end
+              end
+            else
+              break
+            end
+          else
+            break
+          end
+        end
+        r108_0 = false
+        r109_0 = nil
+      end)
+    else
+      r108_0 = false
+      r109_0 = nil
+      r110_0("EZKill", "�م إيقاف قتل بالباص بدون توقف ✅", 3)
+    end
+  end,
+})
+r100_0.PlayerAdded:Connect(function()
+  -- line: [0, 0] id: 182
+  r7_0:UpdateDropdown("�ختار لاعب للقتل بالباص", r114_0())
+end)
+r100_0.PlayerRemoving:Connect(function(r0_5)
+  -- line: [0, 0] id: 5
+  r7_0:UpdateDropdown("�ختار لاعب للقتل بالباص", r114_0())
+  if r109_0 and r0_5 == r109_0 then
+    r108_0 = false
+    r109_0 = nil
+    r110_0("EZKill", "�م إيقاف قتل بالباص بدون توقف بسبب خروج اللاعب ✅", 3)
+  end
+end)
+r7_0:AddSection({
+  "Bring with bus ( جلب بل باص )"
+})
+local r115_0 = game:GetService("Players")
+local r116_0 = r115_0.LocalPlayer
+local r117_0 = game:GetService("ReplicatedStorage")
+local r118_0 = game:GetService("StarterGui")
+local r119_0 = r117_0:WaitForChild("RE")
+local r120_0 = Vector3.new(0, -1, -8)
+local r121_0 = Vector3.new(1252.15, 52.7, 1166.64)
+local r122_0 = false
+local r123_0 = nil
+local function r124_0(r0_175, r1_175, r2_175)
+  -- line: [0, 0] id: 175
+  local r3_175 = r118_0
+  local r5_175 = "SendNotification"
+  local r6_175 = {
+    Title = r0_175,
+    Text = r1_175,
+    Duration = r2_175 or 3,
+  }
+  r3_175:SetCore(r5_175, r6_175)
+end
+local function r125_0()
+  -- line: [0, 0] id: 14
+  r119_0:WaitForChild("1Ca1r"):FireServer(unpack({
+    "PickingCar",
+    "SchoolBus"
+  }))
+end
+local function r126_0(r0_124)
+  -- line: [0, 0] id: 124
+  local r1_124 = tick()
+  while tick() - r1_124 < r0_124 do
+    local r2_124 = workspace.Vehicles:FindFirstChild(r116_0.Name .. "Car")
+    if r2_124 and r2_124:FindFirstChild("Body") then
+      return r2_124
+    end
+    task.wait(0.2)
+  end
+  return nil
+end
+local function r127_0(r0_7)
+  -- line: [0, 0] id: 7
+  if not r0_7.Character then
+    r124_0("EZBring", "�شل: اللاعب غير موجود", 3)
+    return 
+  end
+  r124_0("EZBring", "�دء العملية على " .. r0_7.Name, 3)
+  local r1_7 = r116_0.Character and r116_0.Character:FindFirstChild("HumanoidRootPart") and r116_0.Character.HumanoidRootPart.Position
+  if r116_0.Character and r116_0.Character:FindFirstChild("HumanoidRootPart") then
+    r116_0.Character.HumanoidRootPart.CFrame = CFrame.new(r121_0)
+  end
+  task.wait(0.3)
+  r125_0()
+  task.wait(1)
+  local r2_7 = r126_0(5)
+  if not r2_7 then
+    r124_0("EZBring", "�شل: لم يتم العثور على الباص", 3)
+    return 
+  end
+  local r3_7 = r2_7.Body:FindFirstChild("VehicleSeat", true)
+  if not r3_7 then
+    r124_0("EZBring", "�شل: لم يتم العثور على المقعد", 3)
+    return 
+  end
+  r116_0.Character:MoveTo(r3_7.Position)
+  task.wait(0.2)
+  r3_7:Sit(r116_0.Character:FindFirstChildOfClass("Humanoid"))
+  local r4_7 = r0_7.Character and r0_7.Character:FindFirstChild("HumanoidRootPart")
+  if not r4_7 then
+    r124_0("EZBring", "�شل: اللاعب غير موجود", 3)
+    return 
+  end
+  local r5_7 = true
+  local r6_7 = nil
+  local r7_7 = 0
+  local r8_7 = tick()
+  r6_7 = game:GetService("RunService").Heartbeat:Connect(function(r0_10)
+    -- line: [0, 0] id: 10
+    if r5_7 and r3_7 and r3_7.Parent and r4_7 then
+      r7_7 = r7_7 + r0_10 * 8
+      r3_7.CFrame = r4_7.CFrame * CFrame.new(r120_0.X, r120_0.Y, (r120_0.Z + math.sin(r7_7) * 5))
+    end
+  end)
+  local function r9_7()
+    -- line: [0, 0] id: 12
+    for r3_12, r4_12 in ipairs(r2_7.Body:GetDescendants()) do
+      if (r4_12:IsA("Seat") or r4_12:IsA("VehicleSeat")) and r4_12 ~= r3_7 and r4_12.Occupant then
+        return true
+      end
+    end
+    return false
+  end
+  repeat
+    task.wait(0.2)
+    if tick() - r8_7 >= 20 then
+      r5_7 = false
+      r6_7:Disconnect()
+      r124_0("EZBring", "�م إيقاف العملية بعد 20 ثانية بدون نجاح ❌", 3)
+      return 
+    end
+    local r10_7 = r9_7()
+  until r10_7
+  r5_7 = false
+  r6_7:Disconnect()
+  local r10_7 = nil
+  r10_7 = game:GetService("RunService").Heartbeat:Connect(function()
+    -- line: [0, 0] id: 9
+    if r3_7 and r3_7.Parent and r1_7 then
+      r3_7.CFrame = CFrame.new(r1_7)
+    end
+  end)
+  task.delay(2, function()
+    -- line: [0, 0] id: 11
+    r119_0:WaitForChild("1Ca1r"):FireServer(unpack({
+      "DeleteAllVehicles"
+    }))
+    r124_0("EZBring", "�م سحب اللاعب " .. r0_7.Name, 3)
+  end)
+  task.delay(4, function()
+    -- line: [0, 0] id: 8
+    if r116_0.Character and r116_0.Character:FindFirstChild("HumanoidRootPart") and r1_7 then
+      r116_0.Character.HumanoidRootPart.CFrame = CFrame.new(r1_7)
+    end
+    if r10_7 then
+      r10_7:Disconnect()
+    end
+  end)
+end
+local function r128_0()
+  -- line: [0, 0] id: 166
+  local r0_166 = {}
+  for r4_166, r5_166 in pairs(game:GetService("Players"):GetPlayers()) do
+    if r5_166 ~= r116_0 then
+      table.insert(r0_166, r5_166.Name)
+    end
+  end
+  return r0_166
+end
+r7_0:AddDropdown({
+  Name = "�ختار لاعب للجلب بالباص",
+  Description = "�ختار لاعب لجلبه بالباص",
+  Options = r128_0(),
+  Default = "",
+  Flag = "bus_bring_dropdown_selected_player",
+  Callback = function(r0_176)
+    -- line: [0, 0] id: 176
+    _G.selectedBusBringPlayer = r0_176
+  end,
+})
+r7_0:AddButton({
+  Name = "�لب بل باص",
+  Callback = function()
+    -- line: [0, 0] id: 97
+    if not _G.selectedBusBringPlayer or _G.selectedBusBringPlayer == "" then
+      r124_0("EZBring", "�رجى اختيار لاعب للجلب بالباص أولاً!", 3)
+      return 
+    end
+    local r0_97 = r115_0:FindFirstChild(_G.selectedBusBringPlayer)
+    if not r0_97 then
+      r124_0("EZBring", "�للاعب غير موجود!", 3)
+      return 
+    end
+    task.spawn(function()
+      -- line: [0, 0] id: 98
+      r127_0(r0_97)
+    end)
+  end,
+})
+r7_0:AddToggle({
+  Name = "�لب بل باص بدون توقف",
+  Default = false,
+  Callback = function(r0_115)
+    -- line: [0, 0] id: 115
+    if r0_115 then
+      if not _G.selectedBusBringPlayer or _G.selectedBusBringPlayer == "" then
+        r124_0("EZBring", "�رجى اختيار لاعب للجلب بالباص أولاً!", 3)
+        return false
+      end
+      local r1_115 = r115_0:FindFirstChild(_G.selectedBusBringPlayer)
+      if not r1_115 then
+        r124_0("EZBring", "�للاعب غير موجود!", 3)
+        return false
+      end
+      if r122_0 then
+        r124_0("EZBring", "�لب بل باص بدون توقف شغال بالفعل!", 3)
+        return false
+      end
+      r122_0 = true
+      r123_0 = r1_115
+      r124_0("EZBring", "�م تفعيل جلب بل باص بدون توقف على: " .. r1_115.Name, 3)
+      task.spawn(function()
+        -- line: [0, 0] id: 116
+        while r122_0 do
+          local r0_116 = r123_0
+          if r0_116 then
+            r0_116 = r123_0.Parent
+            if r0_116 then
+              r127_0(r123_0)
+              for r3_116 = 1, 50, 1 do
+                if r122_0 then
+                  task.wait(0.2)
+                end
+              end
+            else
+              break
+            end
+          else
+            break
+          end
+        end
+        r122_0 = false
+        r123_0 = nil
+      end)
+    else
+      r122_0 = false
+      r123_0 = nil
+      r124_0("EZBring", "�م إيقاف جلب بل باص بدون توقف ✅", 3)
+    end
+  end,
+})
+r115_0.PlayerAdded:Connect(function()
+  -- line: [0, 0] id: 56
+  r7_0:UpdateDropdown("�ختار لاعب للجلب بالباص", r128_0())
+end)
+r115_0.PlayerRemoving:Connect(function(r0_165)
+  -- line: [0, 0] id: 165
+  r7_0:UpdateDropdown("�ختار لاعب للجلب بالباص", r128_0())
+  if r123_0 and r0_165 == r123_0 then
+    r122_0 = false
+    r123_0 = nil
+    r124_0("EZBring", "�م إيقاف جلب بل باص بدون توقف بسبب خروج اللاعب ✅", 3)
+  end
+end)
+local r129_0 = r5_0:MakeTab({
+  "Teleports (  الانتقالات )",
+  ""
+})
+r129_0:AddButton({
+  Name = "teleport ( الانتقال لمكان سري )",
+  Callback = function()
+    -- line: [0, 0] id: 140
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-6.88, -130.36, 14.49)
+  end,
+})
+r129_0:AddButton({
+  Name = "teleport ( الانتقال للمدرسه )",
+  Callback = function()
+    -- line: [0, 0] id: 16
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-336.9, 7.03, 211.37)
+  end,
+})
+r129_0:AddButton({
+  Name = "teleport ( الانتقال لمركز الشرطه )",
+  Callback = function()
+    -- line: [0, 0] id: 133
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-119.81, 5.7, 13.17)
+  end,
+})
+r129_0:AddButton({
+  Name = "teleport ( الانتقال للمطعم )",
+  Callback = function()
+    -- line: [0, 0] id: 70
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(160.42, 6.14, 30.98)
+  end,
+})
+r129_0:AddButton({
+  Name = "teleport ( الانتقال للمستشفى )",
+  Callback = function()
+    -- line: [0, 0] id: 18
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-301.43, 5.32, 28.8)
+  end,
+})
+r129_0:AddButton({
+  Name = "teleport ( الانتقال لنقطه البدايه )",
+  Callback = function()
+    -- line: [0, 0] id: 24
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-28.45, 4.42, -7.81)
+  end,
+})
+r129_0:AddButton({
+  Name = "teleport ( الانتقال للبنك )",
+  Callback = function()
+    -- line: [0, 0] id: 99
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(4.69, 5.21, 254.97)
+  end,
+})
+r129_0:AddButton({
+  Name = "teleport ( الانتقال للخزنه )",
+  Callback = function()
+    -- line: [0, 0] id: 58
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-37.54, -47.89, 211.05)
+  end,
+})
+r129_0:AddButton({
+  Name = "teleport ( الانتقال للسوبر ماركت )",
+  Callback = function()
+    -- line: [0, 0] id: 73
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(5.58, 6.02, -119.75)
+  end,
+})
+local r130_0 = r5_0:MakeTab({
+  "Car (  السيارات )",
+  ""
+})
+r130_0:AddSection({
+  "Car Speed ( سرعه السياره)"
+})
+local r132_0 = game:GetService("Players").LocalPlayer
+local r133_0 = 200
+local r134_0 = 50
+local function r135_0()
+  -- line: [0, 0] id: 93
+  local r0_93 = workspace.Vehicles:FindFirstChild(r132_0.Name .. "Car")
+  if r0_93 and r0_93:FindFirstChild("Body") and r0_93.Body:FindFirstChild("VehicleSeat") then
+    return r0_93.Body.VehicleSeat
+  end
+  return nil
+end
+r130_0:AddSlider({
+  Name = "TopSpeed ( السرعة القصوى )",
+  Min = 16,
+  Max = 1000,
+  Default = r133_0,
+  Increment = 1,
+  Callback = function(r0_160)
+    -- line: [0, 0] id: 160
+    r133_0 = r0_160
+    local r1_160 = r135_0()
+    if r1_160 and r1_160:FindFirstChild("TopSpeed") then
+      r1_160.TopSpeed.Value = r133_0
+    end
+  end,
+})
+r130_0:AddSlider({
+  Name = " acceleration ( التسارع )",
+  Min = 0,
+  Max = 120,
+  Default = r134_0,
+  Increment = 1,
+  Callback = function(r0_6)
+    -- line: [0, 0] id: 6
+    r134_0 = r0_6
+    local r1_6 = r135_0()
+    if r1_6 and r1_6:FindFirstChild("Turbo") then
+      r1_6.Turbo.Value = r134_0
+    end
+  end,
+})
+task.spawn(function()
+  -- line: [0, 0] id: 174
+  -- notice: unreachable block#5
+  while true do
+    task.wait(0.5)
+    local r0_174 = r135_0()
+    if r0_174 then
+      if r0_174:FindFirstChild("TopSpeed") then
+        r0_174.TopSpeed.Value = r133_0
+      end
+      if r0_174:FindFirstChild("Turbo") then
+        r0_174.Turbo.Value = r134_0
+      end
+    end
+  end
+end)
+r130_0:AddSection({
+  "cars functions( تخريب سيارات )"
+})
+r130_0:AddButton({
+  Name = "�لب كل السيارات",
+  Callback = function()
+    -- line: [0, 0] id: 184
+    local r1_184 = game:GetService("Players").LocalPlayer
+    local r2_184 = r1_184.Character and r1_184.Character:FindFirstChild("HumanoidRootPart")
+    if not r2_184 then
+      return 
+    end
+    for r6_184, r7_184 in ipairs(workspace.Vehicles:GetChildren()) do
+      if r7_184:FindFirstChild("Body") and r7_184.Body:FindFirstChild("VehicleSeat") then
+        local r8_184 = r7_184.Body.VehicleSeat
+        if r7_184.PrimaryPart then
+          r7_184:SetPrimaryPartCFrame(r2_184.CFrame * CFrame.new(0, 0, -10))
+        else
+          r7_184.Body.CFrame = r2_184.CFrame * CFrame.new(0, 0, -10)
+        end
+      end
+    end
+  end,
+})
+r130_0:AddButton({
+  Name = "�دمير كل السيارات",
+  Callback = function()
+    -- line: [0, 0] id: 44
+    local r1_44 = game:GetService("Players").LocalPlayer
+    local r2_44 = Vector3.new(0, -5000, 0)
+    local r4_44 = (function()
+      -- line: [0, 0] id: 45
+      for r3_45, r4_45 in ipairs(workspace.Vehicles:GetChildren()) do
+        if r4_45:FindFirstChild("Body") then
+          local r5_45 = r4_45.Body:FindFirstChild("VehicleSeat")
+          if r5_45 and r5_45:FindFirstChild("OriginalOwner") and r5_45.OriginalOwner.Value == r1_44.Name then
+            return r5_45
+          end
+        end
+      end
+      return nil
+    end)()
+    for r8_44, r9_44 in ipairs(workspace.Vehicles:GetChildren()) do
+      if r9_44:FindFirstChild("Body") and r9_44.Body:FindFirstChild("VehicleSeat") then
+        local r10_44 = r9_44.Body.VehicleSeat
+        if not r4_44 or r10_44 ~= r4_44 then
+          if r9_44.PrimaryPart then
+            r9_44:SetPrimaryPartCFrame(CFrame.new(r2_44))
+          else
+            r9_44.Body.CFrame = CFrame.new(r2_44)
+          end
+        end
+      end
+    end
+  end,
+})
+r130_0:AddButton({
+  Name = " Speed Meter ( عداد السرعة )",
+  Callback = function()
+    -- line: [0, 0] id: 37
+    local r1_37 = game:GetService("Players").LocalPlayer
+    local r2_37 = game:GetService("RunService")
+    if not r1_37.PlayerGui:FindFirstChild("SpeedGui") then
+      local r3_37 = Instance.new("ScreenGui")
+      r3_37.Name = "SpeedGui"
+      r3_37.Parent = r1_37.PlayerGui
+      local r4_37 = Instance.new("TextLabel")
+      r4_37.Name = "SpeedLabel"
+      r4_37.Size = UDim2.new(0, 200, 0, 50)
+      r4_37.Position = UDim2.new(0.5, -100, 0.8, 0)
+      r4_37.BackgroundTransparency = 0.3
+      r4_37.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+      r4_37.TextColor3 = Color3.fromRGB(255, 255, 255)
+      r4_37.TextScaled = true
+      r4_37.Font = Enum.Font.GothamBold
+      r4_37.Text = ""
+      r4_37.Visible = false
+      r4_37.Parent = r3_37
+    end
+    local r3_37 = r1_37.PlayerGui.SpeedGui.SpeedLabel
+    local r4_37 = not r3_37.Visible
+    r3_37.Visible = r4_37
+    if r4_37 then
+      local r5_37 = nil
+      local r6_37 = tick()
+      local r7_37 = 0
+      r3_37:GetPropertyChangedSignal("Visible"):Connect(function()
+        -- line: [0, 0] id: 38
+        if not r3_37.Visible then
+          return 
+        end
+      end)
+      r2_37.Heartbeat:Connect(function()
+        -- line: [0, 0] id: 39
+        if not r3_37.Visible then
+          return 
+        end
+        local r0_39 = r1_37.Character
+        if not r0_39 or not r0_39:FindFirstChild("HumanoidRootPart") then
+          r3_37.Text = ""
+          return 
+        end
+        local r1_39 = r0_39:FindFirstChildOfClass("Humanoid").SeatPart
+        if r1_39 and r1_39:IsA("VehicleSeat") then
+          local r2_39 = r1_39.Position
+          if r5_37 then
+            r7_37 = r7_37 + (math.floor(((r2_39 - r5_37)).Magnitude / (tick() - r6_37) * 3.6) - r7_37) * 0.1
+            r3_37.Text = tostring(math.floor(r7_37)) .. " km/h"
+          end
+          r5_37 = r2_39
+          r6_37 = tick()
+        else
+          r3_37.Text = ""
+          r5_37 = nil
+        end
+      end)
+      -- close: r5_37
+    end
+  end,
+})
+local r138_0 = game:GetService("Players").LocalPlayer.Character:WaitForChild("Humanoid")
+local r139_0 = false
+local r140_0 = nil
+local function r141_0()
+  -- line: [0, 0] id: 49
+  if r139_0 then
+    return 
+  end
+  r139_0 = true
+  task.spawn(function()
+    -- line: [0, 0] id: 50
+    while r139_0 do
+      local r0_50 = r138_0
+      if r0_50 then
+        r0_50 = r138_0.Parent
+        if r0_50 then
+          r0_50 = r138_0.RigType == Enum.HumanoidRigType.R15
+          local r2_50 = nil	-- notice: implicit variable refs by block#[10, 20]
+          if not r140_0 then
+            local r1_50 = Instance.new("Animation")
+            if r0_50 then
+              r2_50 = "rbxassetid://698251653"
+              if not r2_50 then
+                ::label_31::
+                r2_50 = "rbxassetid://72042024"
+              end
+            else
+              goto label_31	-- block#9 is visited secondly
+            end
+            r1_50.AnimationId = r2_50
+            r2_50 = r138_0:LoadAnimation(r1_50)
+            r140_0 = r2_50
+          end
+          r140_0:Play()
+          local r1_50 = r140_0
+          local r3_50 = nil	-- notice: implicit variable refs by block#[14]
+          if r0_50 then
+            r3_50 = 0.7
+            if not r3_50 then
+              ::label_48::
+              r3_50 = 0.65
+            end
+          else
+            goto label_48	-- block#13 is visited secondly
+          end
+          r1_50:AdjustSpeed(r3_50)
+          r140_0.TimePosition = 0.6
+          task.wait(0.1)
+          while r139_0 do
+            r1_50 = r140_0
+            if r1_50 then
+              r1_50 = r140_0.TimePosition
+              if r0_50 then
+                r2_50 = 0.7
+                if not r2_50 then
+                  ::label_69::
+                  r2_50 = 0.65
+                end
+              else
+                goto label_69	-- block#19 is visited secondly
+              end
+              if r1_50 < r2_50 then
+                task.wait(0.1)
+              else
+                break
+              end
+            else
+              break
+            end
+          end
+          if r140_0 then
+            r140_0:Stop()
+            r140_0 = nil
+          end
+        else
+          break
+        end
+      else
+        break
+      end
+    end
+  end)
+end
+local function r142_0()
+  -- line: [0, 0] id: 28
+  r139_0 = false
+  if r140_0 then
+    r140_0:Stop()
+    r140_0 = nil
+  end
+end
+r8_0:AddToggle({
+  Name = "�جليخ",
+  Default = false,
+  Callback = function(r0_161)
+    -- line: [0, 0] id: 161
+    if r0_161 then
+      r141_0()
+    else
+      r142_0()
+    end
+  end,
+})
+r8_0:AddSection({
+  " ----"
+})
+local r143_0 = game:GetService("Players")
+local r144_0 = game:GetService("RunService")
+local r145_0 = r143_0.LocalPlayer
+_G.selectedBangPlayer = nil
+local r147_0 = nil
+local r148_0 = nil
+local r149_0 = nil
+r8_0:AddDropdown({
+  Name = "�ختار لاعب للـ Bang",
+  Description = "",
+  Options = (function()
+    -- line: [0, 0] id: 123
+    local r0_123 = {}
+    for r4_123, r5_123 in ipairs(r143_0:GetPlayers()) do
+      if r5_123 ~= r145_0 then
+        table.insert(r0_123, r5_123.Name)
+      end
+    end
+    return r0_123
+  end)(),
+  Default = "",
+  Flag = "bang_dropdown_selected_player",
+  Callback = function(r0_130)
+    -- line: [0, 0] id: 130
+    _G.selectedBangPlayer = r0_130
+  end,
+})
+r8_0:AddToggle({
+  Name = " Bang ( بانق )",
+  Default = false,
+  Callback = function(r0_147)
+    -- line: [0, 0] id: 147
+    if r147_0 then
+      r147_0:Disconnect()
+      r147_0 = nil
+    end
+    if r149_0 then
+      r149_0:Stop()
+      r148_0:Destroy()
+      r149_0 = nil
+      r148_0 = nil
+    end
+    if r0_147 and _G.selectedBangPlayer then
+      local r1_147 = r143_0:FindFirstChild(_G.selectedBangPlayer)
+      if not r1_147 then
+        return 
+      end
+      local r2_147 = r145_0.Character or r145_0.CharacterAdded:Wait()
+      local r3_147 = r2_147:WaitForChild("HumanoidRootPart")
+      local r4_147 = r2_147:WaitForChild("Humanoid")
+      r148_0 = Instance.new("Animation")
+      local r5_147 = r148_0
+      local r6_147 = r4_147.RigType
+      if r6_147 == Enum.HumanoidRigType.R15 then
+        r6_147 = "rbxassetid://5918726674" or "rbxassetid://148840371"
+      else
+        goto label_64	-- block#12 is visited secondly
+      end
+      r5_147.AnimationId = r6_147
+      r149_0 = r4_147:LoadAnimation(r148_0)
+      r149_0:Play(0.1, 1, 1)
+      r149_0:AdjustSpeed(3)
+      r5_147 = 0
+      r147_0 = r144_0.Heartbeat:Connect(function(r0_148)
+        -- line: [0, 0] id: 148
+        if not _G.selectedBangPlayer or not r0_147 then
+          if r147_0 then
+            r147_0:Disconnect()
+            r147_0 = nil
+          end
+          if r149_0 then
+            r149_0:Stop()
+            r148_0:Destroy()
+            r149_0 = nil
+            r148_0 = nil
+          end
+          return 
+        end
+        r1_147 = r143_0:FindFirstChild(_G.selectedBangPlayer)
+        if r1_147 and r1_147.Character and r145_0.Character then
+          local r1_148 = r1_147.Character:FindFirstChild("HumanoidRootPart")
+          local r2_148 = r145_0.Character:FindFirstChild("HumanoidRootPart")
+          if r1_148 and r2_148 then
+            r5_147 = r5_147 + r0_148 * 10
+            r2_148.CFrame = r1_148.CFrame * CFrame.new(0, 0, (2 + math.sin(r5_147) * 0.8))
+          end
+        end
+      end)
+      -- close: r1_147
+    end
+  end,
+})
+r8_0:AddSection({
+  " ----"
+})
+local r150_0 = game:GetService("Players")
+local r151_0 = game:GetService("RunService")
+local r152_0 = r150_0.LocalPlayer
+_G.selectedFrontBangPlayer = nil
+local r154_0 = nil
+r8_0:AddDropdown({
+  Name = "�ختار لاعب للـ Head Bang",
+  Description = "",
+  Options = (function()
+    -- line: [0, 0] id: 54
+    local r0_54 = {}
+    for r4_54, r5_54 in ipairs(r150_0:GetPlayers()) do
+      if r5_54 ~= r152_0 then
+        table.insert(r0_54, r5_54.Name)
+      end
+    end
+    return r0_54
+  end)(),
+  Default = "",
+  Flag = "frontbang_dropdown_selected_player",
+  Callback = function(r0_34)
+    -- line: [0, 0] id: 34
+    _G.selectedFrontBangPlayer = r0_34
+  end,
+})
+r8_0:AddToggle({
+  Name = "Head Bang (بانق بالراس)",
+  Default = false,
+  Callback = function(r0_71)
+    -- line: [0, 0] id: 71
+    if r154_0 then
+      r154_0:Disconnect()
+      r154_0 = nil
+    end
+    if r0_71 and _G.selectedFrontBangPlayer then
+      local r1_71 = 0
+      r154_0 = r151_0.Heartbeat:Connect(function(r0_72)
+        -- line: [0, 0] id: 72
+        if not r0_71 then
+          if r154_0 then
+            r154_0:Disconnect()
+            r154_0 = nil
+          end
+          return 
+        end
+        local r1_72 = r150_0:FindFirstChild(_G.selectedFrontBangPlayer)
+        local r2_72 = r152_0.Character
+        local r3_72 = r2_72 and r2_72:FindFirstChild("HumanoidRootPart")
+        local r4_72 = r2_72 and r2_72:FindFirstChild("LowerTorso")
+        if r1_72 and r1_72.Character and r3_72 and r4_72 then
+          local r5_72 = r1_72.Character:FindFirstChild("Head")
+          if r5_72 then
+            r1_71 = r1_71 + r0_72 * 10
+            r3_72.CFrame = r5_72.CFrame * CFrame.new(0, 0, (1.2 + math.sin(r1_71) * 0.5)) * CFrame.new(0, (-r4_72.Position.Y + r3_72.Position.Y), 0)
+          end
+        end
+      end)
+      -- close: r1_71
+    end
+  end,
+})
+r8_0:AddSection({
+  " ----"
+})
+local r155_0 = game:GetService("Players")
+local r156_0 = r155_0.LocalPlayer
+local r157_0 = workspace.CurrentCamera
+local r158_0 = nil
+local r159_0 = nil
+local function r160_0()
+  -- line: [0, 0] id: 53
+  local r0_53 = {}
+  for r4_53, r5_53 in pairs(r155_0:GetPlayers()) do
+    if r5_53 ~= r156_0 then
+      table.insert(r0_53, r5_53.Name)
+    end
+  end
+  return r0_53
+end
+r8_0:AddDropdown({
+  Name = "�ختار لاعب للمراقبة",
+  Description = "�ختار اللاعب الذي تريد مراقبته",
+  Options = r160_0(),
+  Default = "",
+  Flag = "view_dropdown_selected_player",
+  Callback = function(r0_43)
+    -- line: [0, 0] id: 43
+    _G.selectedViewPlayer = r0_43
+  end,
+})
+r8_0:AddToggle({
+  Name = "�راقبة اللاعب",
+  Default = false,
+  Callback = function(r0_66)
+    -- line: [0, 0] id: 66
+    if r0_66 then
+      if not _G.selectedViewPlayer or _G.selectedViewPlayer == "" then
+        r118_0:SetCore("SendNotification", {
+          Title = "XP7 HUB",
+          Text = "�رجى اختيار لاعب أولاً!",
+          Duration = 3,
+        })
+        return false
+      end
+      local r1_66 = r155_0:FindFirstChild(_G.selectedViewPlayer)
+      if not r1_66 or not r1_66.Character then
+        r118_0:SetCore("SendNotification", {
+          Title = "XP7 HUB",
+          Text = "�للاعب غير موجود حالياً!",
+          Duration = 3,
+        })
+        return false
+      end
+      r158_0 = r1_66
+      r159_0 = game:GetService("RunService").Heartbeat:Connect(function()
+        -- line: [0, 0] id: 67
+        if r158_0 and r158_0.Character and r158_0.Character:FindFirstChild("HumanoidRootPart") then
+          r157_0.CameraSubject = r158_0.Character:FindFirstChild("Humanoid")
+        else
+          r157_0.CameraSubject = r156_0.Character:FindFirstChild("Humanoid")
+        end
+      end)
+      r118_0:SetCore("SendNotification", {
+        Title = "XP7 HUB",
+        Text = "�دأت مراقبة: " .. r158_0.Name,
+        Duration = 3,
+      })
+    else
+      if r159_0 then
+        r159_0:Disconnect()
+        r159_0 = nil
+      end
+      r158_0 = nil
+      r157_0.CameraSubject = r156_0.Character:FindFirstChild("Humanoid")
+      r118_0:SetCore("SendNotification", {
+        Title = "XP7 HUB",
+        Text = "�م إيقاف المراقبة ✅",
+        Duration = 3,
+      })
+    end
+  end,
+})
+r155_0.PlayerAdded:Connect(function()
+  -- line: [0, 0] id: 52
+  r7_0:UpdateDropdown("�ختار لاعب للمراقبة", r160_0())
+end)
+r155_0.PlayerRemoving:Connect(function()
+  -- line: [0, 0] id: 121
+  r7_0:UpdateDropdown("�ختار لاعب للمراقبة", r160_0())
+end)
+r8_0:AddSection({
+  " ----"
+})
+local r161_0 = game:GetService("Players")
+local r162_0 = r161_0.LocalPlayer
+local r163_0 = game:GetService("StarterGui")
+local function r164_0()
+  -- line: [0, 0] id: 75
+  local r0_75 = {}
+  for r4_75, r5_75 in pairs(r161_0:GetPlayers()) do
+    if r5_75 ~= r162_0 then
+      table.insert(r0_75, r5_75.Name)
+    end
+  end
+  return r0_75
+end
+r8_0:AddDropdown({
+  Name = "�ختار لاعب للانتقال له",
+  Description = "�ختار اللاعب الذي تريد الانتقال له",
+  Options = r164_0(),
+  Default = "",
+  Flag = "teleport_dropdown_selected_player",
+  Callback = function(r0_154)
+    -- line: [0, 0] id: 154
+    _G.selectedTeleportPlayer = r0_154
+  end,
+})
+r8_0:AddButton({
+  Name = "�نتقال للاعب",
+  Callback = function()
+    -- line: [0, 0] id: 185
+    if not _G.selectedTeleportPlayer or _G.selectedTeleportPlayer == "" then
+      r163_0:SetCore("SendNotification", {
+        Title = "XP7 HUB",
+        Text = "�رجى اختيار لاعب أولاً!",
+        Duration = 3,
+      })
+      return 
+    end
+    local r0_185 = r161_0:FindFirstChild(_G.selectedTeleportPlayer)
+    if not r0_185 or not r0_185.Character or not r0_185.Character:FindFirstChild("HumanoidRootPart") then
+      r163_0:SetCore("SendNotification", {
+        Title = "XP7 HUB",
+        Text = "�للاعب غير موجود حالياً!",
+        Duration = 3,
+      })
+      return 
+    end
+    local r1_185 = r162_0.Character and r162_0.Character:FindFirstChild("HumanoidRootPart")
+    if r1_185 then
+      r1_185.CFrame = r0_185.Character.HumanoidRootPart.CFrame + Vector3.new(0, 3, 0)
+      r163_0:SetCore("SendNotification", {
+        Title = "XP7 HUB",
+        Text = "�م نقلك إلى: " .. r0_185.Name,
+        Duration = 3,
+      })
+    end
+  end,
+})
+r161_0.PlayerAdded:Connect(function()
+  -- line: [0, 0] id: 95
+  r7_0:UpdateDropdown("�ختار لاعب للتيليبورت", r164_0())
+end)
+r161_0.PlayerRemoving:Connect(function()
+  -- line: [0, 0] id: 20
+  r7_0:UpdateDropdown("�ختار لاعب للتيليبورت", r164_0())
+end)
+r8_0:AddSection({
+  " ----"
+})
+local r165_0 = game:GetService("Players")
+local r166_0 = r165_0.LocalPlayer
+local r167_0 = game:GetService("StarterGui")
+local r168_0 = game:GetService("RunService")
+local r169_0 = nil
+local r170_0 = false
+local r171_0 = nil
+local function r172_0(r0_143)
+  -- line: [0, 0] id: 143
+  r167_0:SetCore("SendNotification", {
+    Title = "XP7 HUB",
+    Text = r0_143,
+    Duration = 3,
+  })
+end
+local function r173_0()
+  -- line: [0, 0] id: 26
+  local r0_26 = {}
+  for r4_26, r5_26 in ipairs(r165_0:GetPlayers()) do
+    if r5_26 ~= r166_0 then
+      table.insert(r0_26, r5_26.Name)
+    end
+  end
+  return r0_26
+end
+r8_0:AddDropdown({
+  Name = "�ختار لاعب للالتصاق",
+  Description = "�ختار اللاعب الذي تريد الالتصاق به",
+  Options = r173_0(),
+  Default = "",
+  Flag = "attach_dropdown_selected_player",
+  Callback = function(r0_134)
+    -- line: [0, 0] id: 134
+    _G.selectedAttachPlayer = r0_134
+  end,
+})
+r8_0:AddToggle({
+  Name = "Attach ( التزاق باللاعب)",
+  Default = false,
+  Callback = function(r0_46)
+    -- line: [0, 0] id: 46
+    local r1_46 = nil	-- notice: implicit variable refs by block#[12, 13, 14, 15, 16, 17, 18]
+    if r0_46 then
+      r1_46 = _G.selectedAttachPlayer
+      if r1_46 then
+        r1_46 = _G.selectedAttachPlayer
+        if r1_46 == "" then
+          ::label_10::
+          r172_0("�رجى اختيار لاعب أولاً!")
+          r1_46 = false
+          return r1_46
+        end
+      else
+        goto label_10	-- block#3 is visited secondly
+      end
+      r1_46 = r165_0:FindFirstChild(_G.selectedAttachPlayer)
+      if not r1_46 or not r1_46.Character or not r1_46.Character:FindFirstChild("HumanoidRootPart") then
+        r172_0("�للاعب غير موجود حالياً!")
+        return false
+      end
+      r170_0 = true
+      r171_0 = r166_0.Character and r166_0.Character:FindFirstChild("HumanoidRootPart") and r166_0.Character.HumanoidRootPart.CFrame
+      r172_0("�م تفعيل الالتصاق على: " .. r1_46.Name)
+      r169_0 = r168_0.Heartbeat:Connect(function()
+        -- line: [0, 0] id: 47
+        if not r170_0 then
+          return 
+        end
+        local r0_47 = r1_46.Character and r1_46.Character:FindFirstChild("HumanoidRootPart")
+        local r1_47 = r166_0.Character and r166_0.Character:FindFirstChild("HumanoidRootPart")
+        if r0_47 and r1_47 then
+          r1_47.CFrame = r0_47.CFrame
+        end
+      end)
+      -- close: r1_46
+    else
+      r1_46 = false
+      r170_0 = r1_46
+      r1_46 = r169_0
+      if r1_46 then
+        r1_46 = r169_0
+        r1_46:Disconnect()
+        r1_46 = nil
+        r169_0 = r1_46
+      end
+      r1_46 = r171_0
+      if r1_46 then
+        r1_46 = r166_0
+        r1_46 = r1_46.Character
+        if r1_46 then
+          r1_46 = r166_0
+          r1_46 = r1_46.Character
+          r1_46 = r1_46:FindFirstChild("HumanoidRootPart")
+          if r1_46 then
+            r1_46 = r166_0
+            r1_46 = r1_46.Character
+            r1_46 = r1_46.HumanoidRootPart
+            r1_46.CFrame = r171_0
+          end
+        end
+      end
+      r1_46 = r172_0
+      r1_46("�م إيقاف الالتصاق ✅")
+    end
+  end,
+})
+r165_0.PlayerAdded:Connect(function()
+  -- line: [0, 0] id: 142
+  r7_0:UpdateDropdown("�ختار لاعب للالتصاق", r173_0())
+end)
+r165_0.PlayerRemoving:Connect(function(r0_81)
+  -- line: [0, 0] id: 81
+  r7_0:UpdateDropdown("�ختار لاعب للالتصاق", r173_0())
+  if _G.selectedAttachPlayer == r0_81.Name and r170_0 then
+    r170_0 = false
+    if r169_0 then
+      r169_0:Disconnect()
+      r169_0 = nil
+    end
+    r172_0("�م إيقاف الالتصاق بسبب خروج اللاعب ✅")
+  end
+end)
+r5_0:MakeTab({
+  "infinite yield ( انفنتي ييلد )",
+  ""
+}):AddButton({
+  Name = "infinite yield ( انفينتي ييلد )",
+  Callback = function()
+    -- line: [0, 0] id: 167
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source"))()
+  end,
+})
