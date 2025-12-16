@@ -6141,10 +6141,6 @@ local RunService = game:GetService("RunService")
 
 local player = Players.LocalPlayer
 
---------------------------------------------------
--- 🚗 Anti Vehicle / Object Collision
---------------------------------------------------
-
 local antiVehicleCollision = false
 local vehicleConn
 
@@ -6187,7 +6183,7 @@ local function scanAll()
 end
 
 RedzTab:AddToggle({
-	Name = "Anti Vehicle",
+	Name = "مضاد فلنق",
 	Default = false,
 	Callback = function(value)
 		antiVehicleCollision = value
@@ -6206,14 +6202,10 @@ RedzTab:AddToggle({
 	end
 })
 
---------------------------------------------------
--- ⚡ Anti Bug / Anti Lag
---------------------------------------------------
-
 local AntiBugConn
 
 RedzTab:AddToggle({
-	Name = "Anti Bug / Anti Lag",
+	Name = "مضاد قلتشات",
 	Default = false,
 	Callback = function(enabled)
 		if AntiBugConn then
@@ -6238,12 +6230,8 @@ RedzTab:AddToggle({
 	end
 })
 
---------------------------------------------------
--- 🕵️ Anti ChatSpy
---------------------------------------------------
-
 RedzTab:AddToggle({
-	Name = "Anti ChatSpy",
+	Name = "مضاد تجسس شات",
 	Default = false,
 	Callback = function(enabled)
 		local scripts = player:FindFirstChild("PlayerScripts")
