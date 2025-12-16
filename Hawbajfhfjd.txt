@@ -6135,3 +6135,123 @@ local AntiBannedToggle = RedzTab:AddToggle({
         end
     end
 })
+local Players = game:GetService("Players")
+local Workspace = game:GetService("Workspace")
+local RunService = game:GetService("RunService")
+
+local player = Players.LocalPlayer
+
+--------------------------------------------------
+-- 🚗 Anti Vehicle / Object Collision
+--------------------------------------------------
+
+local antiVehicleCollision = false
+local vehicleConn
+
+local keywords = { "bomb", "soccer", "boat" }
+local carKeyword = "car"
+local wheelKeyword = "wheel"
+
+local function containsKeyword(name, list)
+	if typeof(name) ~= "string" then return false end
+	name = name:lower()
+	for _, word in ipairs(list) do
+		if name:find(word) then
+			return true
+		end
+	end
+	return false
+end
+
+local function applyCollision(obj)
+	if not obj:IsA("BasePart") then return end
+	if obj.Name:lower():find(wheelKeyword) then return end
+
+	local parent = obj
+	while parent do
+		local pname = parent.Name:lower()
+		if pname:find(wheelKeyword) then return end
+
+		if pname:find(carKeyword) or containsKeyword(pname, keywords) then
+			obj.CanCollide = not antiVehicleCollision
+			return
+		end
+		parent = parent.Parent
+	end
+end
+
+local function scanAll()
+	for _, obj in ipairs(Workspace:GetDescendants()) do
+		applyCollision(obj)
+	end
+end
+
+RedzTab:AddToggle({
+	Name = "Anti Vehicle",
+	Default = false,
+	Callback = function(value)
+		antiVehicleCollision = value
+
+		if vehicleConn then
+			vehicleConn:Disconnect()
+			vehicleConn = nil
+		end
+
+		if value then
+			scanAll()
+			vehicleConn = Workspace.DescendantAdded:Connect(applyCollision)
+		else
+			scanAll()
+		end
+	end
+})
+
+--------------------------------------------------
+-- ⚡ Anti Bug / Anti Lag
+--------------------------------------------------
+
+local AntiBugConn
+
+RedzTab:AddToggle({
+	Name = "Anti Bug / Anti Lag",
+	Default = false,
+	Callback = function(enabled)
+		if AntiBugConn then
+			AntiBugConn:Disconnect()
+			AntiBugConn = nil
+		end
+
+		if enabled then
+			AntiBugConn = RunService.Stepped:Connect(function()
+				local cam = workspace.CurrentCamera
+				if not cam then return end
+
+				for _, obj in ipairs(cam:GetChildren()) do
+					if obj:IsA("BasePart") and obj.Name:lower() == "water" then
+						pcall(function()
+							obj:Destroy()
+						end)
+					end
+				end
+			end)
+		end
+	end
+})
+
+--------------------------------------------------
+-- 🕵️ Anti ChatSpy
+--------------------------------------------------
+
+RedzTab:AddToggle({
+	Name = "Anti ChatSpy",
+	Default = false,
+	Callback = function(enabled)
+		local scripts = player:FindFirstChild("PlayerScripts")
+		if not scripts then return end
+
+		local chatSpy = scripts:FindFirstChild("ChatSpy")
+		if chatSpy then
+			chatSpy.Disabled = enabled
+		end
+	end
+})
