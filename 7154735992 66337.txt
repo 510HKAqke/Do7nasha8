@@ -2502,3 +2502,4 @@ r5_0:MakeTab({
     loadstring(game:HttpGet("https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source"))()
   end,
 })
+
