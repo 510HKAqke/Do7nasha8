@@ -4600,22 +4600,31 @@ end
 
 TabSk:AddToggle({
     Name = "🌫️دخان تلقائي",
+    Description = "الوحيد بالعالم",
     Default = false,
     Callback = function(Value)
         isActive = Value
 
         while isActive do
-            local mall = workspace:WaitForChild("WorkspaceCom"):WaitForChild("001_Mall"):WaitForChild("001_Pizza"):FindFirstChild("CatchFire")
-            
-            if mall then
-                local touchInterest = mall:FindFirstChild("TouchInterest")
-                if touchInterest then
-                    firetouchinterest(game.Players.LocalPlayer.Character.HumanoidRootPart, mall, 0)
-                    wait()
-                    firetouchinterest(game.Players.LocalPlayer.Character.HumanoidRootPart, mall, 1)
+            local player = game.Players.LocalPlayer
+            local character = player.Character
+            local root = character and character:FindFirstChild("HumanoidRootPart")
+
+            if root then
+                local oven =
+                    workspace:FindFirstChild("Mall")
+                    and workspace.Mall:FindFirstChild("Pizza")
+                    and workspace.Mall.Pizza:FindFirstChild("PizzaOven")
+                    and workspace.Mall.Pizza.PizzaOven:FindFirstChild("CatchFire")
+
+                if oven and oven:FindFirstChild("TouchInterest") then
+                    firetouchinterest(root, oven, 0)
+                    task.wait()
+                    firetouchinterest(root, oven, 1)
                 end
             end
-            wait(1)
+
+            task.wait(1)
         end
     end
 })
