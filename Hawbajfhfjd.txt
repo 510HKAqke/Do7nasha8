@@ -6014,6 +6014,71 @@ Tablag:AddParagraph({
     Text = "انتظر 35 ثانية لظهور تأثير اللاق"
 })
 
+local LagToggles = { Sniper = false }
+
+Tablag:AddSection("لاق سنايبر")
+
+Tablag:AddToggle({
+    Name = "لاق سنايبر",
+    Default = false,
+    Callback = function(state)
+        LagToggles.Sniper = state
+        if state then
+            local Player = game.Players.LocalPlayer
+            local Character = Player.Character or Player.CharacterAdded:Wait()
+            local RootPart = Character:WaitForChild("HumanoidRootPart")
+            local ReplicatedStorage = game:GetService("ReplicatedStorage")
+
+            local Sniper =
+                workspace:FindFirstChild("WorkspaceCom")
+                and workspace.WorkspaceCom:FindFirstChild("001_CriminalWeapons")
+                and workspace.WorkspaceCom["001_CriminalWeapons"]:FindFirstChild("GiveTools")
+                and workspace.WorkspaceCom["001_CriminalWeapons"].GiveTools:FindFirstChild("Sniper")
+
+            if not Sniper or not Sniper:FindFirstChild("ClickDetector") then
+                Tablag:AddNotification({
+                    Name = "خطأ",
+                    Content = "السنايبر غير موجود!",
+                    Time = 5
+                })
+                return
+            end
+
+            -- حلقة أخذ السلاح
+            task.spawn(function()
+                while LagToggles.Sniper and Sniper and RootPart do
+                    pcall(function()
+                        RootPart.CFrame = Sniper.CFrame
+                        fireclickdetector(Sniper.ClickDetector)
+                    end)
+                    task.wait(0.0001)
+                end
+            end)
+
+            -- حلقة إطلاق / استهلاك السلاح
+            task.spawn(function()
+                while LagToggles.Sniper do
+                    pcall(function()
+                        local VirtualInputManager = game:GetService("VirtualInputManager")
+                        VirtualInputManager:SendMouseButtonEvent(500, 500, 0, true, game, 0)
+                        task.wait(0.2)
+                        VirtualInputManager:SendMouseButtonEvent(500, 500, 0, false, game, 0)
+
+                        local sniperRemote =
+                            ReplicatedStorage:FindFirstChild("RE")
+                            and ReplicatedStorage.RE:FindFirstChild("1Sn1pe1rServe1r")
+
+                        if sniperRemote then
+                            sniperRemote:FireServer(Player.Name)
+                        end
+                    end)
+                    task.wait(0.3)
+                end
+            end)
+        end
+    end
+})
+
 local RedzTab = Window:MakeTab({
     Title = "(EXTRA)الحماية",
     Icon = "shield"
