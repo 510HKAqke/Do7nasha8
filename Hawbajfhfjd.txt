@@ -6246,7 +6246,7 @@ RedzTab:AddToggle({
         local itemsToDestroy = {
             ["Burger Tray"] = true,
             ["Bomb"] = true,
-            ["Laptop"] = true,
+            ["Sniper"] = true,
             ["Paper Bag"] = true,
             ["Chips"] = true,
             ["Ice Cream"] = true,
