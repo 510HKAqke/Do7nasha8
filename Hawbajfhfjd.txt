@@ -4105,6 +4105,126 @@ task.wait(0.25)
     end
 })
 
+local Players = game:GetService("Players")
+local RunService = game:GetService("RunService")
+local LocalPlayer = Players.LocalPlayer
+local Workspace = game:GetService("Workspace")
+
+local Selec9tedPlayerNOme = nil
+local PlayerDropdown = nil
+local BangToggles = {}
+
+local function GetPlayersList()
+    local list = {}
+    for _, p in ipairs(Players:GetPlayers()) do
+        if p ~= LocalPlayer then
+            table.insert(list, p.Name)
+        end
+    end
+    return #list > 0 and list or {"لا يوجد لاعبين"}
+end
+
+PlayerDropdown = ChildTab:AddDropdown({
+    Name = "اختار لاعب",
+    Options = GetPlayersList(),
+    Default = "لا يوجد لاعبين",
+    Callback = function(value)
+        if value == "لا يوجد لاعبين" then
+            Selec9tedPlayerNOme = nil
+        else
+            Selec9tedPlayerNOme = value
+        end
+    end
+})
+
+ChildTab:AddButton({
+    Name = "تحديث اللاعبين",
+    Callback = function()
+        local newPlayers = GetPlayersList()
+        if PlayerDropdown then
+            PlayerDropdown:Set(newPlayers)
+            if #newPlayers > 0 then
+                PlayerDropdown:SetValue(newPlayers[1])
+                Selec9tedPlayerNOme = newPlayers[1]
+            else
+                PlayerDropdown:SetValue("لا يوجد لاعبين")
+                Selec9tedPlayerNOme = nil
+            end
+        end
+    end
+})
+
+local function createBangToggle(name, yOffset, faceBang)
+    local toggleActive = false
+    local connection = nil
+    local togglePosition = false
+
+    BangToggles[name] = ChildTab:AddToggle({
+        Name = name,
+        Default = false,
+        Callback = function(Value)
+            toggleActive = Value
+            local char = LocalPlayer.Character
+            if not char then return end
+            local humanoid = char:FindFirstChildOfClass("Humanoid")
+            if not humanoid then return end
+
+            if Value then
+                humanoid.PlatformStand = true
+                if connection then connection:Disconnect() end
+                connection = RunService.Heartbeat:Connect(function()
+                    if toggleActive and Selec9tedPlayerNOme then
+                        local targetPlayer = Players:FindFirstChild(Selec9tedPlayerNOme)
+                        if targetPlayer and targetPlayer.Character and targetPlayer.Character.PrimaryPart then
+                            local targetHead = targetPlayer.Character:FindFirstChild("Head")
+                            if targetHead and char.PrimaryPart then
+                                local offset = (togglePosition and 1) or 4
+                                if faceBang then
+                                    char:SetPrimaryPartCFrame(targetHead.CFrame * CFrame.new(0,1,-offset) * CFrame.Angles(0,math.rad(180),0))
+                                else
+                                    char:SetPrimaryPartCFrame(targetHead.CFrame * CFrame.new(0,yOffset,offset))
+                                end
+                                togglePosition = not togglePosition
+                            end
+                        end
+                    else
+                        humanoid.PlatformStand = false
+                    end
+                end)
+            else
+                humanoid.PlatformStand = false
+                if connection then connection:Disconnect(); connection = nil end
+            end
+        end
+    })
+end
+
+createBangToggle(" رحمة v1 | v1", -1, false)
+createBangToggle(" رحمة v2 | v2", -1.5, false)
+createBangToggle("رحمة الوجه v1 | v1", 1, true)
+createBangToggle("رحمة الوجه v2 | v2", 1, true)
+
+Players.PlayerAdded:Connect(function()
+    local newList = GetPlayersList()
+    if PlayerDropdown then PlayerDropdown:Set(newList) end
+end)
+
+Players.PlayerRemoving:Connect(function()
+    if PlayerDropdown then
+        local newList = GetPlayersList()
+        PlayerDropdown:Set(newList)
+        if Selec9tedPlayerNOme == Players:GetPlayers()[#Players:GetPlayers()] then
+            Selec9tedPlayerNOme = nil
+        end
+    end
+end)
+
+LocalPlayer.CharacterAdded:Connect(function()
+    for _, toggle in pairs(BangToggles) do
+        toggle:Update(toggle:Get())
+    end
+end)
+
 local TabSk = Window:MakeTab({"السكن", "rbxassetid://10734952036"})
 
 TabSk:AddSection({ Name = "نسخ السكن" })
