@@ -5905,42 +5905,60 @@ local function clickNormally(object)
 end
 
 Tablag:AddSection("لاق بالهاتف")
-
 Tablag:AddToggle({
     Name = "لاق بالهاتف",
     Default = false,
     Callback = function(state)
         LagToggles.Phone = state
-        if state then
-            local phonePath = workspace:FindFirstChild("WorkspaceCom")
-                and workspace.WorkspaceCom:FindFirstChild("001_CommercialStores")
-                and workspace.WorkspaceCom["001_CommercialStores"]:FindFirstChild("CommercialStorage1")
-                and workspace.WorkspaceCom["001_CommercialStores"].CommercialStorage1:FindFirstChild("Store")
-                and workspace.WorkspaceCom["001_CommercialStores"].CommercialStorage1.Store:FindFirstChild("Tools")
-                and workspace.WorkspaceCom["001_CommercialStores"].CommercialStorage1.Store.Tools:FindFirstChild("Iphone")
+        if not state then return end
 
-            if not phonePath then
-                Tablag:AddNotification({
-                    Name = "خطأ",
-                    Content = "الهاتف غير موجود!",
-                    Time = 5
-                })
-                return
-            end
+        task.spawn(function()
+            local teleportCount = 0
 
-            task.spawn(function()
-                local teleportCount = 0
-                while LagToggles.Phone and phonePath do
-                    local char = game.Players.LocalPlayer.Character
-                    if char and char:FindFirstChild("HumanoidRootPart") then
-                        char.HumanoidRootPart.CFrame = phonePath.CFrame
+            while LagToggles.Phone do
+                local player = game.Players.LocalPlayer
+                local char = player.Character
+                local root = char and char:FindFirstChild("HumanoidRootPart")
+
+                local WorkspaceCom = workspace:FindFirstChild("WorkspaceCom")
+
+                local phonePath =
+                    WorkspaceCom
+                    and WorkspaceCom:FindFirstChild("001_CommercialStores")
+                    and WorkspaceCom["001_CommercialStores"]:FindFirstChild("CommercialStorage1")
+                    and WorkspaceCom["001_CommercialStores"].CommercialStorage1:FindFirstChild("Store")
+                    and WorkspaceCom["001_CommercialStores"].CommercialStorage1.Store:FindFirstChild("Tools")
+                    and WorkspaceCom["001_CommercialStores"].CommercialStorage1.Store.Tools:FindFirstChild("Iphone")
+
+                if not phonePath then
+                    local storeButton =
+                        WorkspaceCom
+                        and WorkspaceCom:FindFirstChild("001_CommercialStores")
+                        and WorkspaceCom["001_CommercialStores"]:FindFirstChild("CommercialPlot1Buttons")
+                        and WorkspaceCom["001_CommercialStores"].CommercialPlot1Buttons:FindFirstChild("Commercial1Store1")
+
+                    if storeButton and root then
+                        root.CFrame = storeButton.CFrame
+                        task.wait(0.3)
+                        clickNormally(storeButton)
+                        task.wait(1)
+                    end
+                else
+             
+                    if root then
+                        root.CFrame = phonePath.CFrame
                         clickNormally(phonePath)
                     end
+
                     teleportCount += 1
-                    if teleportCount % 50 == 0 then task.wait(0.1) end
+                    if teleportCount % 50 == 0 then
+                        task.wait(0.1)
+                    end
                 end
-            end)
-        end
+
+                task.wait()
+            end
+        end)
     end
 })
 
