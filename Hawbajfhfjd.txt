@@ -42,10 +42,10 @@ InfoTab:AddButton({
     end
 })
 
-local NoftTab = Window:MakeTab({ 
+local NotifTab = Window:MakeTab({ 
 Title = "كشف رتب واشعارات", 
 Icon = "rbxassetid://10723415903" })
-NoftTab:AddSection({ "الرتب" })
+NotifTab:AddSection({ "الرتب" })
 
 local Players = game:GetService("Players")
 local LocalPlayer = Players.LocalPlayer
@@ -216,7 +216,7 @@ local function clearAllTags()
     end
 end
 
-NoftTab:AddToggle({
+NotifTab:AddToggle({
     Name = "كشف الرتب",
     Default = true,
     Callback = function(state)
@@ -255,11 +255,9 @@ Players.PlayerAdded:Connect(function(player)
         end)
     end
 end)
-
-NoftTab:AddParagraph({"مطور"})
-NoftTab:AddParagraph({"ادمن"})
-NoftTab:AddParagraph({"عضو"})
-
+NotifTab:AddParagraph({"مطور"})
+NotifTab:AddParagraph({"ادمن"})
+NotifTab:AddParagraph({"عضو"})
 local Players = game:GetService("Players")
 local LocalPlayer = Players.LocalPlayer
 local TweenService = game:GetService("TweenService")
@@ -468,7 +466,7 @@ local function StartMonitoring()
 	end)
 end
 
-NoftTab:AddToggle({
+NotifTab:AddToggle({
 	Name = "إشعارات الدخول والخروج",
 	Default = false,
 	Callback = function(Value)
@@ -6924,91 +6922,4 @@ RedzTab:AddToggle({
 			chatSpy.Disabled = enabled
 		end
 	end
-})
-
-local NoDoorCollisionConnections = {}
-local NoDoorCollisionEnabled = false
-local CachedParts = {}
-
-local function isDoorPart(obj)
-    if not obj:IsA("BasePart") then return false end
-    local name = obj.Name:lower()
-    return name:find("door") ~= nil
-end
-
-local function applyNoCollision(part)
-    if not CachedParts[part] then
-        CachedParts[part] = {
-            CanCollide = part.CanCollide,
-            CanTouch = part.CanTouch
-        }
-    end
-    part.CanCollide = false
-    part.CanTouch = false
-end
-
-local function restoreCollision(part)
-    local cache = CachedParts[part]
-    if cache then
-        part.CanCollide = cache.CanCollide
-        part.CanTouch = cache.CanTouch
-    end
-end
-
-local function scanAndApply()
-    for _, obj in ipairs(workspace:GetDescendants()) do
-        if isDoorPart(obj) then
-            applyNoCollision(obj)
-        end
-    end
-
-    local swingPath = workspace:FindFirstChild("WorkspaceCom")
-    if swingPath and swingPath:FindFirstChild("002_Swing") then
-        local swingSet = swingPath["002_Swing"]:FindFirstChild("Swing Set")
-        if swingSet then
-            for _, swing in ipairs(swingSet:GetDescendants()) do
-                if swing:IsA("BasePart") then
-                    applyNoCollision(swing)
-                end
-            end
-        end
-    end
-end
-
-local function restoreAll()
-    for part,_ in pairs(CachedParts) do
-        if part and part.Parent then
-            restoreCollision(part)
-        end
-    end
-    CachedParts = {}
-end
-
-RedzTab:AddToggle({
-    Name = "مضاد ابواب",
-    Default = false,
-    Callback = function(Value)
-        NoDoorCollisionEnabled = Value
-
-        for _,c in ipairs(NoDoorCollisionConnections) do
-            c:Disconnect()
-        end
-        NoDoorCollisionConnections = {}
-
-        if Value then
-            scanAndApply()
-            table.insert(NoDoorCollisionConnections,
-                workspace.DescendantAdded:Connect(function(obj)
-                    if NoDoorCollisionEnabled and isDoorPart(obj) then
-                        task.wait(0.1)
-                        if obj:IsA("BasePart") then
-                            applyNoCollision(obj)
-                        end
-                    end
-                end)
-            )
-        else
-            restoreAll()
-        end
-    end
 })
