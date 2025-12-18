@@ -1,19 +1,3 @@
-local Libary = loadstring(game:HttpGet("https://raw.githubusercontent.com/kllooep/Fjjzxda6/refs/heads/main/DovEn529"))()
-
-local Window = Libary:MakeWindow({
-    Title = "👹NetroZHub- فريق",
-    SubTitle = "by: مطورين Developers (Ghali, , EV_Rami)",
-    LoadText = "NetroZHubDevelopers",
-    Flags = "NetroZ_Brookhaven"
-})
-Window:AddMinimizeButton({
-    Button = { Image = "rbxassetid://132069262307646", BackgroundTransparency = 0 },
-    Corner = { CornerRadius = UDim.new(35, 1) },
-})
-local InfoTab = Window:MakeTab({ 
-Title = "الحقوق والرتب", 
-Icon = "rbxassetid://10723415903" })
-
 local Players = game:GetService("Players")
 local LocalPlayer = Players.LocalPlayer
 local TweenService = game:GetService("TweenService")
@@ -190,23 +174,17 @@ end)
 end
 
 local function GetPlayerRank(player)
-	if Owners[player.Name] then
-		return "Owner"
-
-	elseif Admins[player.Name] then
-		return "Admin"
-
-	else
-		local success, isFriend = pcall(function()
-			return LocalPlayer:IsFriendsWith(player.UserId)
-		end)
-
-		if success and isFriend then
-			return "Friend"
-		else
-			return "Player"
-		end
-	end
+if Owners[player.Name] then
+return "Owner"
+elseif Admins[player.Name] then
+return "Admin"
+elseif pcall(function()
+return LocalPlayer:IsFriendsWith(player.UserId)
+end) then
+return "Friend"
+else
+return "Player"
+end
 end
 
 local function StartMonitoring()
