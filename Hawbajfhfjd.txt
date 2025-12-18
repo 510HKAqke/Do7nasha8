@@ -4109,21 +4109,90 @@ local ChildTab = Window:MakeTab({
 Title = "الرحمة & صملة", 
 Icon = "rbxassetid://10723415903" })
 
-
 local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
 local LocalPlayer = Players.LocalPlayer
-local Workspace = game:GetService("Workspace")
 
 local Selec9tedPlayerNOme = nil
 local PlayerDropdown = nil
 local BangToggles = {}
+local PlayerStats = {}
+
+local AntiSitConnections = {}
+local AntiSitEnabled = false
+
+local function EnableAntiSit()
+    AntiSitEnabled = true
+
+    local function protectCharacter(char)
+        local hum = char:WaitForChild("Humanoid",5)
+        if not hum then return end
+
+        hum:SetStateEnabled(Enum.HumanoidStateType.Seated,false)
+
+        table.insert(AntiSitConnections,
+            hum.StateChanged:Connect(function(_,new)
+                if AntiSitEnabled and new == Enum.HumanoidStateType.Seated then
+                    hum.Sit = false
+                    hum:ChangeState(Enum.HumanoidStateType.Jumping)
+                end
+            end)
+        )
+    end
+
+    if LocalPlayer.Character then
+        protectCharacter(LocalPlayer.Character)
+    end
+
+    table.insert(AntiSitConnections,
+        LocalPlayer.CharacterAdded:Connect(protectCharacter)
+    )
+
+    local function disableSeat(obj)
+        if obj:IsA("Seat") or obj:IsA("VehicleSeat") then
+            obj.Disabled = true
+        end
+    end
+
+    for _,v in ipairs(workspace:GetDescendants()) do
+        disableSeat(v)
+    end
+
+    table.insert(AntiSitConnections,
+        workspace.DescendantAdded:Connect(function(obj)
+            if AntiSitEnabled then
+                disableSeat(obj)
+            end
+        end)
+    )
+end
+
+local function DisableAntiSit()
+    AntiSitEnabled = false
+    for _,c in ipairs(AntiSitConnections) do
+        c:Disconnect()
+    end
+    AntiSitConnections = {}
+
+    for _,v in ipairs(workspace:GetDescendants()) do
+        if v:IsA("Seat") or v:IsA("VehicleSeat") then
+            v.Disabled = false
+        end
+    end
+
+    if LocalPlayer.Character then
+        local hum = LocalPlayer.Character:FindFirstChild("Humanoid")
+        if hum then
+            hum:SetStateEnabled(Enum.HumanoidStateType.Seated,true)
+        end
+    end
+end
 
 local function GetPlayersList()
     local list = {}
-    for _, p in ipairs(Players:GetPlayers()) do
+    for _,p in ipairs(Players:GetPlayers()) do
         if p ~= LocalPlayer then
-            table.insert(list, p.Name)
+            table.insert(list,p.Name)
         end
     end
     return #list > 0 and list or {"لا يوجد لاعبين"}
@@ -4134,10 +4203,14 @@ PlayerDropdown = ChildTab:AddDropdown({
     Options = GetPlayersList(),
     Default = "لا يوجد لاعبين",
     Callback = function(value)
-        if value == "لا يوجد لاعبين" then
-            Selec9tedPlayerNOme = nil
-        else
-            Selec9tedPlayerNOme = value
+        Selec9tedPlayerNOme = value ~= "لا يوجد لاعبين" and value or nil
+        if Selec9tedPlayerNOme and not PlayerStats[Selec9tedPlayerNOme] then
+            PlayerStats[Selec9tedPlayerNOme] = {
+                Seconds = 0,
+                Minutes = 0,
+                Hours = 0,
+                LeaveCount = 0
+            }
         end
     end
 })
@@ -4146,89 +4219,110 @@ ChildTab:AddButton({
     Name = "تحديث اللاعبين",
     Callback = function()
         local newPlayers = GetPlayersList()
-        if PlayerDropdown then
-            PlayerDropdown:Set(newPlayers)
-            if #newPlayers > 0 then
-                PlayerDropdown:SetValue(newPlayers[1])
-                Selec9tedPlayerNOme = newPlayers[1]
-            else
-                PlayerDropdown:SetValue("لا يوجد لاعبين")
-                Selec9tedPlayerNOme = nil
-            end
-        end
+        PlayerDropdown:Set(newPlayers)
     end
 })
 
-local function createBangToggle(name, yOffset, faceBang)
+PlayerStats.TimePara = ChildTab:AddParagraph({Text="Time 00:00:00"})
+PlayerStats.LeavePara = ChildTab:AddParagraph({Text="عدد مرات الخروج: 0"})
+
+task.spawn(function()
+    while true do
+        if Selec9tedPlayerNOme and PlayerStats[Selec9tedPlayerNOme] then
+            local s = PlayerStats[Selec9tedPlayerNOme]
+            s.Seconds += 1
+            if s.Seconds >= 60 then
+                s.Seconds = 0
+                s.Minutes += 1
+            end
+            if s.Minutes >= 60 then
+                s.Minutes = 0
+                s.Hours += 1
+            end
+            PlayerStats.TimePara:Set(
+                string.format(
+                    "%s : %02d:%02d:%02d",
+                    Selec9tedPlayerNOme,
+                    s.Hours,s.Minutes,s.Seconds
+                )
+            )
+        end
+        task.wait(1)
+    end
+end)
+
+Players.PlayerRemoving:Connect(function(plr)
+    if plr.Name == Selec9tedPlayerNOme then
+        local s = PlayerStats[Selec9tedPlayerNOme]
+        if s then
+            s.LeaveCount += 1
+            PlayerStats.LeavePara:Set(
+                Selec9tedPlayerNOme.." :عدد مرات الخروج "..s.LeaveCount
+            )
+        end
+    end
+end)
+
+local function createBangToggle(name,yOffset,faceBang)
     local toggleActive = false
-    local connection = nil
+    local connection
     local togglePosition = false
 
-    BangToggles[name] = ChildTab:AddToggle({
+    ChildTab:AddToggle({
         Name = name,
         Default = false,
         Callback = function(Value)
             toggleActive = Value
-            local char = LocalPlayer.Character
-            if not char then return end
-            local humanoid = char:FindFirstChildOfClass("Humanoid")
-            if not humanoid then return end
 
             if Value then
-                humanoid.PlatformStand = true
-                if connection then connection:Disconnect() end
-                connection = RunService.Heartbeat:Connect(function()
-                    if toggleActive and Selec9tedPlayerNOme then
-                        local targetPlayer = Players:FindFirstChild(Selec9tedPlayerNOme)
-                        if targetPlayer and targetPlayer.Character and targetPlayer.Character.PrimaryPart then
-                            local targetHead = targetPlayer.Character:FindFirstChild("Head")
-                            if targetHead and char.PrimaryPart then
-                                local offset = (togglePosition and 1) or 4
-                                if faceBang then
-                                    char:SetPrimaryPartCFrame(targetHead.CFrame * CFrame.new(0,1,-offset) * CFrame.Angles(0,math.rad(180),0))
-                                else
-                                    char:SetPrimaryPartCFrame(targetHead.CFrame * CFrame.new(0,yOffset,offset))
-                                end
-                                togglePosition = not togglePosition
-                            end
-                        end
-                    else
-                        humanoid.PlatformStand = false
-                    end
-                end)
+                EnableAntiSit()
             else
-                humanoid.PlatformStand = false
-                if connection then connection:Disconnect(); connection = nil end
+                DisableAntiSit()
             end
+
+            if connection then
+                connection:Disconnect()
+                connection = nil
+            end
+
+            if not Value then return end
+
+            connection = RunService.Heartbeat:Connect(function()
+                if not toggleActive or not Selec9tedPlayerNOme then return end
+
+                local char = LocalPlayer.Character
+                if not char or not char.PrimaryPart then return end
+
+                local target = Players:FindFirstChild(Selec9tedPlayerNOme)
+                if not target or not target.Character or not target.Character.PrimaryPart then return end
+
+                local targetHead = target.Character:FindFirstChild("Head")
+                if not targetHead then return end
+
+                local offset = (togglePosition and 1) or 4
+
+                if faceBang then
+                    char:SetPrimaryPartCFrame(
+                        targetHead.CFrame
+                        * CFrame.new(0,1,-offset)
+                        * CFrame.Angles(0,math.rad(180),0)
+                    )
+                else
+                    char:SetPrimaryPartCFrame(
+                        targetHead.CFrame * CFrame.new(0,yOffset,offset)
+                    )
+                end
+
+                togglePosition = not togglePosition
+            end)
         end
     })
 end
 
-createBangToggle(" رحمة v1 | v1", -1, false)
-createBangToggle(" رحمة v2 | v2", -1.5, false)
-createBangToggle("رحمة الوجه v1 | v1", 1, true)
-createBangToggle("رحمة الوجه v2 | v2", 1, true)
-
-Players.PlayerAdded:Connect(function()
-    local newList = GetPlayersList()
-    if PlayerDropdown then PlayerDropdown:Set(newList) end
-end)
-
-Players.PlayerRemoving:Connect(function()
-    if PlayerDropdown then
-        local newList = GetPlayersList()
-        PlayerDropdown:Set(newList)
-        if Selec9tedPlayerNOme == Players:GetPlayers()[#Players:GetPlayers()] then
-            Selec9tedPlayerNOme = nil
-        end
-    end
-end)
-
-LocalPlayer.CharacterAdded:Connect(function()
-    for _, toggle in pairs(BangToggles) do
-        toggle:Update(toggle:Get())
-    end
-end)
+createBangToggle("رحمة v1 | v1",-1,false)
+createBangToggle("رحمة v2 | v2",-1.5,false)
+createBangToggle("رحمة وجه v1 | v1",1,true)
+createBangToggle("رحمة وجه v2 | v2",1,true)
 
 local TabSk = Window:MakeTab({"السكن", "rbxassetid://10734952036"})
 
