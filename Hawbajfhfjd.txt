@@ -4132,9 +4132,12 @@ task.wait(0.25)
     end
 })
 
-local ChildTab = Window:MakeTab({ 
+local SamlaTab = Window:MakeTab({ 
 Title = "الرحمة & صملة", 
 Icon = "rbxassetid://10723415903" })
+SamlaTab:AddSection({ "حقوق الافكار محفوظة لفريق NetroZ" })
+SamlaTab:AddParagraph({"اي مطور يريد يقتبس الفكرة حتى لو مسوي مشاكل معي حلاله"})
+SamlaTab:AddParagraph({"لكن انتبه تحط حقوق رامي&غالي"})
 
 local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
@@ -4225,7 +4228,7 @@ local function GetPlayersList()
     return #list > 0 and list or {"لا يوجد لاعبين"}
 end
 
-PlayerDropdown = ChildTab:AddDropdown({
+PlayerDropdown = SamlaTab:AddDropdown({
     Name = "اختار لاعب",
     Options = GetPlayersList(),
     Default = "لا يوجد لاعبين",
@@ -4242,7 +4245,7 @@ PlayerDropdown = ChildTab:AddDropdown({
     end
 })
 
-ChildTab:AddButton({
+SamlaTab:AddButton({
     Name = "تحديث اللاعبين",
     Callback = function()
         local newPlayers = GetPlayersList()
@@ -4250,7 +4253,7 @@ ChildTab:AddButton({
     end
 })
 
-ChildTab:AddToggle({
+SamlaTab:AddToggle({
     Name = "تجسس على اللاعب",
     Default = false,
     Callback = function(state)
@@ -4274,9 +4277,13 @@ ChildTab:AddToggle({
         end
     end
 })
+SamlaTab:AddSection({ "عداد وقت الصملة" })
 
-PlayerStats.TimePara = ChildTab:AddParagraph({Text="Time 00:00:00"})
-PlayerStats.LeavePara = ChildTab:AddParagraph({Text="عدد مرات الخروج: 0"})
+PlayerStats.TimePara = SamlaTab:AddParagraph({Text="Time 00:00:00"})
+PlayerStats.LeavePara = 
+
+SamlaTab:AddSection({ "عداد نقاط الخروج" })
+SamlaTab:AddParagraph({Text="عدد مرات الخروج: 0"})
 
 task.spawn(function()
     while true do
@@ -4320,7 +4327,7 @@ local function createBangToggle(name,yOffset,faceBang)
     local connection
     local togglePosition = false
 
-    ChildTab:AddToggle({
+    SamlaTab:AddToggle({
         Name = name,
         Default = false,
         Callback = function(Value)
@@ -4375,6 +4382,8 @@ createBangToggle("رحمة v1 | v1",-1,false)
 createBangToggle("رحمة v2 | v2",-1.5,false)
 createBangToggle("رحمة وجه v1 | v1",1,true)
 createBangToggle("رحمة وجه v2 | v2",1,true)
+
+SamlaTab:AddParagraph({"اي شخص ياخذ الفكرة بدون ما يحط حقوق او يستاذن متابعيني يسوونك مضحكة ويهينوك"})
 
 local TabSk = Window:MakeTab({"السكن", "rbxassetid://10734952036"})
 
