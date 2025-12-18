@@ -1,0 +1,238 @@
+local Libary = loadstring(game:HttpGet("https://raw.githubusercontent.com/kllooep/Fjjzxda6/refs/heads/main/DovEn529"))()
+
+local Window = Libary:MakeWindow({
+    Title = "👹NetroZHub- فريق",
+    SubTitle = "by: مطورين Developers (Ghali, , EV_Rami)",
+    LoadText = "NetroZHubDevelopers",
+    Flags = "NetroZ_Brookhaven"
+})
+Window:AddMinimizeButton({
+    Button = { Image = "rbxassetid://132069262307646", BackgroundTransparency = 0 },
+    Corner = { CornerRadius = UDim.new(35, 1) },
+})
+local InfoTab = Window:MakeTab({ 
+Title = "الحقوق والرتب", 
+Icon = "rbxassetid://10723415903" })
+
+local Players = game:GetService("Players")
+local LocalPlayer = Players.LocalPlayer
+local TweenService = game:GetService("TweenService")
+
+المالكون
+local Owners = {
+["Sajwaad"] = true,
+["ghali"] = true
+}
+
+الإداريون
+local Admins = {
+["sortou"] = true,
+["sevbo"] = true,
+["suknak"] = true
+}
+
+local Active = false
+
+local function CreateStarBackground(parent, width, height)
+local container = Instance.new("Frame")
+container.BackgroundTransparency = 1
+container.Size = UDim2.new(0, width, 0, height)
+container.ClipsDescendants = true
+container.Parent = parent
+
+local space = Instance.new("Frame")  
+space.BackgroundColor3 = Color3.fromRGB(7, 5, 20)  
+space.BackgroundTransparency = 0  
+space.BorderSizePixel = 0  
+space.Size = UDim2.new(1, 0, 1, 0)  
+space.Parent = container  
+
+local starCount = 70  
+for _ = 1, starCount do  
+	local star = Instance.new("Frame")  
+	star.BackgroundTransparency = 0  
+	star.BorderSizePixel = 0  
+	star.Size = UDim2.new(0, 2, 0, 2)  
+	star.Position = UDim2.new(0, math.random(0, width), 0, math.random(0, height))  
+	star.ZIndex = 1  
+
+	local corner = Instance.new("UICorner")  
+	corner.CornerRadius = UDim.new(1, 0)  
+	corner.Parent = star  
+
+	local r = math.random(1, 10)  
+	if r <= 6 then  
+		star.BackgroundColor3 = Color3.fromRGB(255, 255, 255)  
+	elseif r <= 9 then  
+		star.BackgroundColor3 = Color3.fromRGB(180, 220, 255)  
+	else  
+		star.BackgroundColor3 = Color3.fromRGB(255, 230, 180)  
+	end  
+
+	star.Parent = container  
+
+	local baseY = star.Position.Y.Offset  
+	local speed = math.random() * 0.7 + 0.3  
+	local amp = math.random(10, 35)  
+	local phase = math.random() * math.pi * 2  
+	local twinkle = math.random() < 0.25  
+
+	spawn(function()  
+		local t = 0  
+		while star.Parent do  
+			t = t + speed * 0.05  
+			star.Position = UDim2.new(0, star.Position.X.Offset, 0, baseY + math.sin(t + phase) * amp)  
+			if twinkle then  
+				local b = (math.sin(t * 2) + 1) / 2  
+				local c = star.BackgroundColor3  
+				star.BackgroundColor3 = Color3.new(math.min(1, c.R + b*0.2), math.min(1, c.G + b*0.2), math.min(1, c.B + b*0.2))  
+			end  
+			wait()  
+		end  
+	end)  
+end  
+
+return container
+
+end
+
+local function CreateNotification(player, rankType, action)
+local gui = Instance.new("ScreenGui")
+gui.Name = "JoinLeaveNotify_" .. player.UserId
+gui.ResetOnSpawn = false
+gui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+gui.Parent = game:GetService("CoreGui")
+
+local frame = Instance.new("Frame")  
+frame.Size = UDim2.new(0, 260, 0, 85)  
+frame.Position = UDim2.new(0.5, -130, 1, -100)  
+frame.BackgroundTransparency = 1  
+frame.BorderSizePixel = 0  
+frame.ZIndex = 2  
+frame.Parent = gui  
+
+
+local stars = CreateStarBackground(frame, 260, 85)  
+
+local bgColor, textColor, title  
+if rankType == "Owner" then  
+	bgColor = Color3.fromRGB(45, 35, 0)      -- ذهبي غامق  
+	textColor = Color3.fromRGB(255, 215, 0)  -- ذهبي نقي  
+	title = "مالك"  
+elseif rankType == "Admin" then  
+	bgColor = Color3.fromRGB(40, 0, 0)       -- أحمر داكن  
+	textColor = Color3.fromRGB(255, 80, 80)  -- أحمر ناري  
+	title = "أدمــن"  
+elseif rankType == "Friend" then  
+	bgColor = Color3.fromRGB(20, 40, 70)     -- أزرق فضائي  
+	textColor = Color3.fromRGB(220, 240, 255) -- أبيض مزرق  
+	title = "صديق"  
+else  
+	bgColor = Color3.fromRGB(30, 30, 40)     -- رمادي داكن  
+	textColor = Color3.fromRGB(230, 230, 230) -- أبيض نقي  
+	title = "لاعب"  
+end  
+
+local overlay = Instance.new("Frame")  
+overlay.BackgroundColor3 = bgColor  
+overlay.BackgroundTransparency = 0.15  
+overlay.BorderSizePixel = 0  
+overlay.Size = UDim2.new(1, 0, 1, 0)  
+overlay.ZIndex = 2  
+overlay.Parent = stars  
+
+local avatar = Instance.new("ImageLabel")  
+avatar.Size = UDim2.new(0, 60, 0, 60)  
+avatar.Position = UDim2.new(0, 12, 0, 12)  
+avatar.BackgroundTransparency = 1  
+avatar.Image = "https://www.roblox.com/headshot-thumbnail/image?userId= " .. player.UserId .. "&width=150&height=150&format=png"  
+avatar.ZIndex = 3  
+avatar.Parent = frame  
+
+local nameLabel = Instance.new("TextLabel")  
+nameLabel.Size = UDim2.new(0, 170, 0, 24)  
+nameLabel.Position = UDim2.new(0, 80, 0, 12)  
+nameLabel.BackgroundTransparency = 1  
+nameLabel.Font = Enum.Font.GothamBold  
+nameLabel.TextSize = 15  
+nameLabel.TextColor3 = textColor  
+nameLabel.Text = player.Name .. " | " .. title  
+nameLabel.TextXAlignment = Enum.TextXAlignment.Left  
+nameLabel.ZIndex = 3  
+nameLabel.Parent = frame  
+
+local actionLabel = Instance.new("TextLabel")  
+actionLabel.Size = UDim2.new(0, 170, 0, 24)  
+actionLabel.Position = UDim2.new(0, 80, 0, 48)  
+actionLabel.BackgroundTransparency = 1  
+actionLabel.Font = Enum.Font.Gotham  
+actionLabel.TextSize = 14  
+actionLabel.TextColor3 = Color3.fromRGB(200, 200, 200)  
+actionLabel.Text = "» " .. action .. " «"  
+actionLabel.TextXAlignment = Enum.TextXAlignment.Left  
+actionLabel.ZIndex = 3  
+actionLabel.Parent = frame  
+
+local tween = TweenService:Create(frame, TweenInfo.new(0.7, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {  
+	Position = UDim2.new(0.5, -130, 0, 30)  
+})  
+tween:Play()  
+
+delay(3, function()  
+	if gui and gui.Parent then  
+		local fade = TweenService:Create(frame, TweenInfo.new(0.5), { BackgroundTransparency = 1 })  
+		fade:Play()  
+		fade.Completed:Wait()  
+		gui:Destroy()  
+	end  
+end)
+
+end
+
+local function GetPlayerRank(player)
+	if Owners[player.Name] then
+		return "Owner"
+
+	elseif Admins[player.Name] then
+		return "Admin"
+
+	else
+		local success, isFriend = pcall(function()
+			return LocalPlayer:IsFriendsWith(player.UserId)
+		end)
+
+		if success and isFriend then
+			return "Friend"
+		else
+			return "Player"
+		end
+	end
+end
+
+local function StartMonitoring()
+Players.PlayerAdded:Connect(function(player)
+if Active and player ~= LocalPlayer then
+local rank = GetPlayerRank(player)
+CreateNotification(player, rank, "دخل")
+end
+end)
+
+Players.PlayerRemoving:Connect(function(player)  
+	if Active and player ~= LocalPlayer then  
+		local rank = GetPlayerRank(player)  
+		CreateNotification(player, rank, "خرج")  
+	end  
+end)
+
+end
+
+InfoTab:AddToggle({
+Name = "إشعارات الدخول والخروج",
+Default = false,
+Callback = function(Value)
+Active = Value
+if Value then
+StartMonitoring()
+end
+end
+})
