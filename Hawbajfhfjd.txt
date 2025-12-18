@@ -4223,6 +4223,31 @@ ChildTab:AddButton({
     end
 })
 
+ChildTab:AddToggle({
+    Name = "تجسس على اللاعب",
+    Default = false,
+    Callback = function(state)
+        local Camera = Workspace.CurrentCamera
+        if state then
+            if not Selec9tedPlayerNOme then return end
+            if getgenv().SpyConnection then getgenv().SpyConnection:Disconnect() end
+
+            getgenv().SpyConnection = RunService.Heartbeat:Connect(function()
+                local target = game.Players:FindFirstChild(Selec9tedPlayerNOme)
+                if target and target.Character then
+                    Camera.CameraSubject = target.Character:FindFirstChild("Humanoid") or Camera.CameraSubject
+                end
+            end)
+        else
+            if getgenv().SpyConnection then
+                getgenv().SpyConnection:Disconnect()
+                getgenv().SpyConnection = nil
+            end
+            Camera.CameraSubject = LocalPlayer.Character and LocalPlayer.Character:FindFirstChild("Humanoid") or Camera.CameraSubject
+        end
+    end
+})
+
 PlayerStats.TimePara = ChildTab:AddParagraph({Text="Time 00:00:00"})
 PlayerStats.LeavePara = ChildTab:AddParagraph({Text="عدد مرات الخروج: 0"})
 
