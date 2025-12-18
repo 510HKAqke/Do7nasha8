@@ -933,9 +933,6 @@ local StarterGui = game:GetService("StarterGui")
 local Players = game:GetService("Players")
 local LocalPlayer = Players.LocalPlayer
 
------------------------------------------------------
--- IDs التيشيرتات
------------------------------------------------------
 local TshirtIDs = {
     ["الافتراضي"] = nil, -- الافتراضي
     ["colkid"] = 98679358331654, -- نفس الموجود في السكربت القديم
@@ -951,9 +948,6 @@ local TshirtIDs = {
 
 local SelectedTshirtID = nil -- تيشرت مختار
 
------------------------------------------------------
--- دالة تشغيل الأنيميشن
------------------------------------------------------
 local function playAnimation(animId)
     local character = LocalPlayer.Character or LocalPlayer.CharacterAdded:Wait()
     local humanoid = character:WaitForChild("Humanoid")
@@ -968,9 +962,6 @@ local function playAnimation(animId)
     return track
 end
 
------------------------------------------------------
--- دالة إرسال إشعار
------------------------------------------------------
 local function notify(title, text)
     StarterGui:SetCore("SendNotification", {
         Title = title,
@@ -979,9 +970,6 @@ local function notify(title, text)
     })
 end
 
------------------------------------------------------
--- DropDown اختيار التيشيرت
------------------------------------------------------
 TrollTab:AddDropdown({
     Name = "اختر التيشرت",
     Description = "اختر تيشيرت لتطبيقه مع السكاي بوكس",
@@ -993,9 +981,6 @@ TrollTab:AddDropdown({
     end
 })
 
------------------------------------------------------
--- زر تفعيل السكاي بوكس
------------------------------------------------------
 TrollTab:AddButton({
     Name = "تشغيل اختراق السماء🌌",
     Description = "تلوين السماء بتيشيرت اللاعب(تظهر للناس)",
@@ -1003,7 +988,6 @@ TrollTab:AddButton({
         local WearShirt = ReplicatedStorage.Remotes:FindFirstChild("WearShirt")
         local ChangeBody = ReplicatedStorage.Remotes:FindFirstChild("ChangeCharacterBody")
 
-        -- تغيير التيشرت إذا لم يكن الافتراضي
         if SelectedTshirtID then
             if WearShirt then
                 pcall(function()
@@ -1012,22 +996,66 @@ TrollTab:AddButton({
             end
         end
 
-        -- تطبيق السكاي بوكس
         if ChangeBody then
             pcall(function()
                 ChangeBody:InvokeServer({100839513065432})
             end)
         end
 
-        -- تشغيل الأنيميشن
         playAnimation(101852027997337)
         notify("Skybox", "تم تفعيل السكاي بوكس بنجاح!")
     end
 })
+local RunService = game:GetService("RunService")
+local Players = game:GetService("Players")
+local LocalPlayer = Players.LocalPlayer
 
------------------------------------------------------
--- زر إيقاف السكاي بوكس
------------------------------------------------------
+local SpinSpeed = 1
+local SpinEnabled = false
+local SpinConnection = nil
+
+TrollTab:AddSlider({
+    Name = "اختاير سرعة دوران",
+    Min = 1,
+    Max = 100,
+    Default = 1,
+    Increment = 1,
+    ValueName = "Speed",
+    Callback = function(Value)
+        SpinSpeed = Value
+    end
+})
+
+TrollTab:AddToggle({
+    Name = "تشغيل الدوران",
+    Default = false,
+    Callback = function(Value)
+        SpinEnabled = Value
+
+        if SpinEnabled then
+            if SpinConnection then SpinConnection:Disconnect() end
+
+            SpinConnection = RunService.Heartbeat:Connect(function(dt)
+                local char = LocalPlayer.Character
+                if not char then return end
+
+                local root = char:FindFirstChild("HumanoidRootPart")
+                if not root then return end
+
+                local radiansPerSecond = SpinSpeed * math.pi
+                local rotation = radiansPerSecond * dt
+
+                root.CFrame = root.CFrame * CFrame.Angles(0, rotation, 0)
+            end)
+        else
+            if SpinConnection then
+                SpinConnection:Disconnect()
+                SpinConnection = nil
+            end
+        end
+    end
+})
+
 TrollTab:AddButton({
     Name = "إيقاف اختراق السماء🌌",
     Description = "ارجاع اللاعب للوضع الطبيعي",
@@ -1039,7 +1067,6 @@ TrollTab:AddButton({
             end)
         end
 
-        -- إيقاف أي أنيميشنات
         local char = LocalPlayer.Character
         if char then
             local humanoid = char:FindFirstChildOfClass("Humanoid")
