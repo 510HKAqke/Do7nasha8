@@ -48,11 +48,13 @@ InfoTab:AddParagraph({"مطور"})
 InfoTab:AddParagraph({"ادمن"})
 InfoTab:AddParagraph({"عضو"})
 
-InfoTab:AddSection({ "عرض الرتب" })
+local NoftTab = Window:MakeTab({ 
+Title = "كشف رتب واشعارات", 
+Icon = "rbxassetid://10723415903" })
 
 local Players = game:GetService("Players")
+local LocalPlayer = Players.LocalPlayer
 local RunService = game:GetService("RunService")
-local Camera = workspace.CurrentCamera
 
 local Roles = {
     ["Sajwaad"] = "مطور",
@@ -70,7 +72,7 @@ local Roles = {
 }
 
 local tagTracks = {} -- { player = connection }
-local tagsEnabled = false -- الحالة الابتدائية
+local tagsEnabled = false
 
 local function createProfessionalTag(player)
     if not tagsEnabled then return end
@@ -86,14 +88,11 @@ local function createProfessionalTag(player)
     removeOldTag()
 
     local function buildTag()
+        if not tagsEnabled then return end
         local character = player.Character
         if not character then return end
-
         local head = character:FindFirstChild("Head")
-        if not head then
-            head = character:WaitForChild("Head", 10)
-            if not head then return end
-        end
+        if not head then return end
 
         removeOldTag()
 
@@ -101,7 +100,7 @@ local function createProfessionalTag(player)
         gui.Name = "NameTag"
         gui.Adornee = head
         gui.Parent = character
-        gui.Size = UDim2.new(4, 0, 1.5, 0) -- أطول
+        gui.Size = UDim2.new(4, 0, 1.5, 0)
         gui.StudsOffset = Vector3.new(0, 3.5, 0)
         gui.AlwaysOnTop = true
 
@@ -137,10 +136,8 @@ local function createProfessionalTag(player)
         local label = Instance.new("TextLabel")
         label.Size = UDim2.new(1, 0, 1, 0)
         label.BackgroundTransparency = 1
-        label.Text = "عضو"
-        label.TextColor3 = Color3.fromRGB(255, 0, 0)
-        label.TextSize = 20
         label.Font = Enum.Font.GothamBold
+        label.TextSize = 20
         label.Parent = frame
 
         local role = Roles[player.Name] or "عضو"
@@ -167,7 +164,7 @@ local function createProfessionalTag(player)
         end
 
         spawn(function()
-            while gui.Parent do
+            while gui.Parent and tagsEnabled do
                 if role == "مطور" then
                     stroke.Color = Color3.fromRGB(200, 100, 255)
                 elseif role == "ادمن" then
@@ -182,9 +179,12 @@ local function createProfessionalTag(player)
 
     spawn(buildTag)
 
-    local charConnection = player.CharacterAdded:Connect(function()
+    local charConnection
+    charConnection = player.CharacterAdded:Connect(function()
         wait(0.5)
-        spawn(buildTag)
+        if tagsEnabled then
+            spawn(buildTag)
+        end
     end)
 
     if tagTracks[player] then
@@ -202,30 +202,26 @@ local function createProfessionalTag(player)
     end)
 end
 
---// تحديث العلامات
 local function updateAllTags()
+    if not tagsEnabled then return end
     for _, player in ipairs(Players:GetPlayers()) do
-        -- ✅ تمت إزالة الشرط: player ~= Players.LocalPlayer
         spawn(function()
             createProfessionalTag(player)
         end)
     end
 end
 
---// إزالة جميع العلامات
 local function clearAllTags()
     for _, player in ipairs(Players:GetPlayers()) do
         local character = player.Character
         if character then
             local tag = character:FindFirstChild("NameTag")
-            if tag then
-                tag:Destroy()
-            end
+            if tag then tag:Destroy() end
         end
     end
 end
 
-InfoTab:AddToggle({
+NoftTab:AddToggle({
     Name = "كشف الرتب",
     Default = true,
     Callback = function(state)
@@ -248,14 +244,15 @@ InfoTab:AddToggle({
     end
 })
 
---// تفعيل تلقائي عند تشغيل السكريبت
+
 spawn(function()
     wait(1)
-    tagsEnabled = true
-    updateAllTags() -- ✅ سيتم تضمينك أنت أيضًا الآن
+    if tagsEnabled then
+        updateAllTags()
+    end
 end)
 
---// على دخول لاعب جديد
+
 Players.PlayerAdded:Connect(function(player)
     if tagsEnabled then
         spawn(function()
@@ -264,10 +261,7 @@ Players.PlayerAdded:Connect(function(player)
     end
 end)
 
-local NoftTab = Window:MakeTab({ 
-Title = "كشف رتب واشعارات", 
-Icon = "rbxassetid://10723415903" })
-
+_____________________
 
 local Players = game:GetService("Players")
 local LocalPlayer = Players.LocalPlayer
