@@ -42,15 +42,10 @@ InfoTab:AddButton({
     end
 })
 
-InfoTab:AddSection({ "الرتب" })
-
-InfoTab:AddParagraph({"مطور"})
-InfoTab:AddParagraph({"ادمن"})
-InfoTab:AddParagraph({"عضو"})
-
 local NoftTab = Window:MakeTab({ 
 Title = "كشف رتب واشعارات", 
 Icon = "rbxassetid://10723415903" })
+NoftTab:AddSection({ "الرتب" })
 
 local Players = game:GetService("Players")
 local LocalPlayer = Players.LocalPlayer
@@ -261,7 +256,9 @@ Players.PlayerAdded:Connect(function(player)
     end
 end)
 
-_____________________
+NoftTab:AddParagraph({"مطور"})
+NoftTab:AddParagraph({"ادمن"})
+NoftTab:AddParagraph({"عضو"})
 
 local Players = game:GetService("Players")
 local LocalPlayer = Players.LocalPlayer
