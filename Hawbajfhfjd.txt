@@ -42,107 +42,6 @@ InfoTab:AddButton({
     end
 })
 
-local Players = game:GetService("Players")
-local TeleportService = game:GetService("TeleportService")
-local HttpService = game:GetService("HttpService")
-local RunService = game:GetService("RunService")
-
-local function copyServerCode()
-    local serverId = game.JobId
-    setclipboard(serverId)
-    game.StarterGui:SetCore("SendNotification", {
-        Title = "تم النسخ",
-        Text = "كود السيرفر تم نسخه: " .. serverId,
-        Duration = 3
-    })
-end
-
-local function teleportToRandomServer()
-    local placeId = game.PlaceId
-    local servers = {}
-    local page = 1
-    local success, data = pcall(function()
-        return HttpService:GetAsync("https://games.roblox.com/v1/games/"..placeId.."/servers/Public?sortOrder=Asc&limit=100")
-    end)
-    if success then
-        local response = HttpService:JSONDecode(data)
-        servers = response.data or {}
-    end
-    if #servers > 0 then
-        local chosen = servers[math.random(1,#servers)]
-        TeleportService:TeleportToPlaceInstance(placeId, chosen.id, Players.LocalPlayer)
-    else
-        game.StarterGui:SetCore("SendNotification", {
-            Title = "خطأ",
-            Text = "تعذر العثور على سيرفر آخر!",
-            Duration = 3
-        })
-    end
-end
-
-local function teleportToLeastPopulatedServer()
-    local placeId = game.PlaceId
-    local servers = {}
-    local success, data = pcall(function()
-        return HttpService:GetAsync("https://games.roblox.com/v1/games/"..placeId.."/servers/Public?sortOrder=Asc&limit=100")
-    end)
-    if success then
-        local response = HttpService:JSONDecode(data)
-        servers = response.data or {}
-    end
-    if #servers > 0 then
-        table.sort(servers, function(a,b) return a.playing < b.playing end)
-        TeleportService:TeleportToPlaceInstance(placeId, servers[1].id, Players.LocalPlayer)
-    else
-        game.StarterGui:SetCore("SendNotification", {
-            Title = "خطأ",
-            Text = "تعذر العثور على سيرفر!",
-            Duration = 3
-        })
-    end
-end
-
-local ServerTab = Window:MakeTab({Title = "أدوات السيرفر", Icon = "rbxassetid://10723415903"})
-
-ServerTab:AddSection({Name = "الانتقال بين السيرفرات"})
-
-ServerTab:AddButton({
-    Name = "نسخ كود السيرفر",
-    Callback = copyServerCode
-})
-
-ServerTab:AddButton({
-    Name = "سيرفر عشوائي",
-    Callback = teleportToRandomServer
-})
-
-ServerTab:AddButton({
-    Name = "سيرفر شبه فارغ",
-    Callback = teleportToLeastPopulatedServer
-})
-
-ServerTab:AddTextbox({
-    Name = "ادخل كود السيرفر",
-    Default = "",
-    TextDisappear = true,
-    PlaceholderText = "أدخل رمز السيرفر هنا",
-    Callback = function(text)
-        local serverId = text
-        if serverId and serverId ~= "" then
-            local success, err = pcall(function()
-                TeleportService:TeleportToPlaceInstance(game.PlaceId, serverId, Players.LocalPlayer)
-            end)
-            if not success then
-                game.StarterGui:SetCore("SendNotification", {
-                    Title = "خطأ",
-                    Text = "تعذر الانتقال.",
-                    Duration = 3
-                })
-            end
-        end
-    end
-})
-
 local NotifTab = Window:MakeTab({ 
 Title = "كشف رتب واشعارات", 
 Icon = "rbxassetid://10723415903" })
@@ -7023,4 +6922,84 @@ RedzTab:AddToggle({
 			chatSpy.Disabled = enabled
 		end
 	end
+})
+
+local Players = game:GetService("Players")
+local TeleportService = game:GetService("TeleportService")
+local HttpService = game:GetService("HttpService")
+local RunService = game:GetService("RunService")
+
+local function copyServerCode()
+    local serverId = game.JobId
+    setclipboard(serverId)
+    game.StarterGui:SetCore("SendNotification", {
+        Title = "تم النسخ",
+        Text = "كود السيرفر تم نسخه: " .. serverId,
+        Duration = 3
+    })
+end
+
+local function teleportToRandomServer()
+    local placeId = game.PlaceId
+    local servers = {}
+    local page = 1
+    local success, data = pcall(function()
+        return HttpService:GetAsync("https://games.roblox.com/v1/games/"..placeId.."/servers/Public?sortOrder=Asc&limit=100")
+    end)
+    if success then
+        local response = HttpService:JSONDecode(data)
+        servers = response.data or {}
+    end
+    if #servers > 0 then
+        local chosen = servers[math.random(1,#servers)]
+        TeleportService:TeleportToPlaceInstance(placeId, chosen.id, Players.LocalPlayer)
+    else
+        game.StarterGui:SetCore("SendNotification", {
+            Title = "خطأ",
+            Text = "تعذر العثور على سيرفر آخر!",
+            Duration = 3
+        })
+    end
+end
+
+local function teleportToLeastPopulatedServer()
+    local placeId = game.PlaceId
+    local servers = {}
+    local success, data = pcall(function()
+        return HttpService:GetAsync("https://games.roblox.com/v1/games/"..placeId.."/servers/Public?sortOrder=Asc&limit=100")
+    end)
+    if success then
+        local response = HttpService:JSONDecode(data)
+        servers = response.data or {}
+    end
+    if #servers > 0 then
+        table.sort(servers, function(a,b) return a.playing < b.playing end)
+        TeleportService:TeleportToPlaceInstance(placeId, servers[1].id, Players.LocalPlayer)
+    else
+        game.StarterGui:SetCore("SendNotification", {
+            Title = "خطأ",
+            Text = "تعذر العثور على سيرفر!",
+            Duration = 3
+        })
+    end
+end
+
+-- Section السيرفرات
+local ServerTab = Window:MakeTab({Title = "أدوات السيرفر", Icon = "rbxassetid://10723415903"})
+
+ServerTab:AddSection({Name = "أدوات النقل"})
+
+ServerTab:AddButton({
+    Name = "نسخ كود السيرفر",
+    Callback = copyServerCode
+})
+
+ServerTab:AddButton({
+    Name = "سيرفر عشوائي",
+    Callback = teleportToRandomServer
+})
+
+ServerTab:AddButton({
+    Name = "سيرفر أقل عدد لاعبين",
+    Callback = teleportToLeastPopulatedServer
 })
