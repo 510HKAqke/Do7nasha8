@@ -16,10 +16,6 @@ Title = "الحقوق والرتب",
 Icon = "rbxassetid://10723415903" })
 
 InfoTab:AddParagraph({
-    Title = "التحديث",
-    Text = "كريسماسV0.8"
-})
-InfoTab:AddParagraph({
     Title = "ابرز الاضافات",
     Text = "الشات+قسم الرحمه+تصحيح الاخطاء"
 })
