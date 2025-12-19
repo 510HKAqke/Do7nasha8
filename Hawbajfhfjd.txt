@@ -1,11 +1,11 @@
 local Libary = loadstring(game:HttpGet("https://raw.githubusercontent.com/kllooep/Fjjzxda6/refs/heads/main/DovEn529"))()
-
 local Window = Libary:MakeWindow({
     Title = "👹NetroZHub- فريق",
     SubTitle = "by: مطورين Developers (Ghali, , EV_Rami)",
     LoadText = "NetroZHubDevelopers",
     Flags = "NetroZ_Brookhaven"
 })
+
 Window:AddMinimizeButton({
     Button = { Image = "rbxassetid://132069262307646", BackgroundTransparency = 0 },
     Corner = { CornerRadius = UDim.new(35, 1) },
@@ -14,45 +14,6 @@ Window:AddMinimizeButton({
 local InfoTab = Window:MakeTab({ 
 Title = "الحقوق والرتب", 
 Icon = "rbxassetid://10723415903" })
-
-InfoTab:AddSection({
-Name = "NetroZمعلومات سكربت"
-})
-InfoTab:AddParagraph
-({ "تحديث الكريسماس🤶" })
-InfoTab:AddParagraph
-({ "NetroZHub V0.8" })
-
-InfoTab:AddDiscordInvite({
-    Name = "DemozXمطورين",
-    Description = "تليجرام",
-    Logo = "rbxassetid://109596885589960",
-    Invite = "https://t.me/R_amI11",
-})
-
-InfoTab:AddSection
-({ "TikTokحسابات المطورين" })
-
-InfoTab:AddParagraph
-({ "Rami: ifbr4 + higg_03" })
-
-InfoTab:AddSection
-({ "حسابات المطورين روب" })
-
-InfoTab:AddParagraph
-({"Rami: Sajwaad + DemonHub_Dev"})
-
-InfoTab:AddParagraph
-({"Ghali: ghalidev_0 + ghali0059 "})
-
-InfoTab:AddSection({ "اعادة دخول" })
-InfoTab:AddButton({
-    Name = "اعادة دخول للسيرفر",
-    Callback = function()
-        local TeleportService = game:GetService("TeleportService")
-        TeleportService:TeleportToPlaceInstance(game.PlaceId, game.JobId, game.Players.LocalPlayer)
-    end
-})
 
 InfoTab:AddSection({ "الرتب" })
 
