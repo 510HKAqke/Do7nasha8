@@ -30,7 +30,7 @@ InfoTab:AddDiscordInvite({
     Logo = "rbxassetid://109596885589960",
     Invite = "https://t.me/R_amI11",
 })
-
+InfoTab:AddSection({ "حسابات TikTok" })
 InfoTab:AddParagraph({
     Title = "Rami",
     Text = "@ifbr4 + @.k.wn0"
@@ -39,7 +39,7 @@ InfoTab:AddParagraph({
     Title = "Ghali",
     Text = "@higg_03"
 })
-
+InfoTab:AddSection({ "حسابات المطورين روب" })
 InfoTab:AddParagraph({
     Title = "Rami",
     Text = "@Sajwaad + @DemonHub_Dev"
