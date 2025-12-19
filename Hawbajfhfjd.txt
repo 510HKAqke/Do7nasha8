@@ -42,10 +42,10 @@ InfoTab:AddButton({
     end
 })
 
-local NotifTab = Window:MakeTab({ 
+local InfoTab = Window:MakeTab({ 
 Title = "كشف رتب واشعارات", 
 Icon = "rbxassetid://10723415903" })
-NotifTab:AddSection({ "الرتب" })
+InfoTab:AddSection({ "الرتب" })
 
 local Players = game:GetService("Players")
 local LocalPlayer = Players.LocalPlayer
@@ -216,7 +216,7 @@ local function clearAllTags()
     end
 end
 
-NotifTab:AddToggle({
+InfoTab:AddToggle({
     Name = "كشف الرتب",
     Default = true,
     Callback = function(state)
@@ -255,20 +255,18 @@ Players.PlayerAdded:Connect(function(player)
         end)
     end
 end)
-NotifTab:AddParagraph({"مطور"})
-NotifTab:AddParagraph({"ادمن"})
-NotifTab:AddParagraph({"عضو"})
+InfoTab:AddParagraph({"مطور"})
+InfoTab:AddParagraph({"ادمن"})
+InfoTab:AddParagraph({"عضو"})
 local Players = game:GetService("Players")
 local LocalPlayer = Players.LocalPlayer
 local TweenService = game:GetService("TweenService")
 
--- المالكون
 local Owners = {
 	["Sajwaad"] = true,
 	["ghali"] = true
 }
 
--- الإداريون
 local Admins = {
 	["sortou"] = true,
 	["sevbo"] = true,
@@ -457,7 +455,6 @@ local function StartMonitoring()
 			CreateNotification(player, rank, "دخل")
 		end
 	end)
-
 	Players.PlayerRemoving:Connect(function(player)
 		if Active and player ~= LocalPlayer then
 			local rank = GetPlayerRank(player)
@@ -466,7 +463,7 @@ local function StartMonitoring()
 	end)
 end
 
-NotifTab:AddToggle({
+InfoTab:AddToggle({
 	Name = "إشعارات الدخول والخروج",
 	Default = false,
 	Callback = function(Value)
@@ -6928,44 +6925,4 @@ local UniversalTab = Window:MakeTab({"سكربتات متنوعة", "plane"})
 
 Section = UniversalTab:AddSection({
     Name = "سكربتات مفيدة"
-})
-
--- Botão para ShiftLock
-UniversalTab:AddButton({
-    Name = "سكربت قفل",
-    Callback = function()        loadstring(game:HttpGet("https://pastebin.com/raw/N2tiHgyv"))()
-    end
-})
-
-UniversalTab:AddButton({
-    Name = "سكربت ادمن",
-    Callback = function()      loadstring(game:HttpGet("https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source"))()
-    end
-})
-
-UniversalTab:AddButton({
-    Name = "اداة انتقال",
-    Callback = function()        loadstring(game:HttpGet("https://raw.githubusercontent.com/err0r129/KptHadesBlair/main/Bao.lua"))()
-    end
-})
-
-UniversalTab:AddButton({
-    Name = "طيران",
-    Callback = function()      loadstring(game:HttpGet("https://scriptblox.com/raw/Universal-Script-Fly-v3-7412"))()
-    end
-})
-
-UniversalTab:AddButton({
-    Name = "Namelesسكربت ادمن",
-    Callback = function()
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/FilteringEnabled/NamelessAdmin/main/Source" ))()
-    end
-})
-
-
-UniversalTab:AddButton({
-    Name = "تحكم بالسيارات",
-    Callback = function()
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/SAZXHUB/Control-update/main/README.md", true))()
-    end
 })
