@@ -6352,7 +6352,76 @@ RedzTab:AddToggle({
 		end
 	end
 })
+RedzTab:AddToggle({
+    Name = "حذف الأدوات الممنوعة",
+    Default = false,
+    Callback = function(state)
 
+        if state then
+
+            local Players = game:GetService("Players")
+            local LocalPlayer = Players.LocalPlayer
+
+            local BlockedItems = {
+                ["Burger Tray"] = true,
+                ["Bomb"] = true,
+                ["Sniper"] = true,
+                ["Paper Bag"] = true,
+                ["Chips"] = true,
+                ["Ice Cream"] = true,
+                ["Taser"] = true,
+                ["Basketball"] = true,
+                ["FireX"] = true,
+                ["Ladder"] = true,
+                ["Ghost Meter"] = true,
+                ["Clipboard"] = true,
+                ["Stretcher"] = true,
+                ["Glock"] = true,
+                ["Electric Guitar"] = true,
+                ["Guitar"] = true,
+                ["Book"] = true,
+                ["Box"] = true,
+                ["Frap Strawberry"] = true,
+                ["Bank Keycard"] = true,
+                ["White Keycard"] = true,
+                ["Mop"] = true,
+                ["Iphone"] = true,
+                ["Ipad"] = true,
+            }
+
+            task.spawn(function()
+                while state do
+                    -- workspace
+                    for _, obj in ipairs(workspace:GetDescendants()) do
+                        if obj:IsA("Tool") and BlockedItems[obj.Name] then
+                            obj:Destroy()
+                        end
+                    end
+
+                    for _, obj in ipairs(LocalPlayer.Backpack:GetChildren()) do
+                        if obj:IsA("Tool") and BlockedItems[obj.Name] then
+                            obj:Destroy()
+                        end
+                    end
+
+
+                    if LocalPlayer.Character then
+                        for _, obj in ipairs(LocalPlayer.Character:GetChildren()) do
+                            if obj:IsA("Tool") and BlockedItems[obj.Name] then
+                                obj:Destroy()
+                            end
+                        end
+                    end
+
+                    task.wait(0.2)
+                end
+            end)
+
+        else
+
+        end
+    end
+})
 RedzTab:AddToggle({
 	Name = "مضاد تجسس شات",
 	Default = false,
