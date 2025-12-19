@@ -5,7 +5,6 @@ local Window = Libary:MakeWindow({
     LoadText = "NetroZHubDevelopers",
     Flags = "NetroZ_Brookhaven"
 })
-
 Window:AddMinimizeButton({
     Button = { Image = "rbxassetid://132069262307646", BackgroundTransparency = 0 },
     Corner = { CornerRadius = UDim.new(35, 1) },
@@ -14,9 +13,10 @@ Window:AddMinimizeButton({
 local InfoTab = Window:MakeTab({ 
 Title = "الحقوق والرتب", 
 Icon = "rbxassetid://10723415903" })
+InfoTab:AddSection({ "تحديثNetroZHub" })
 
 InfoTab:AddParagraph({
-    Title = "ابرز الاضافات",
+    Title = "Christmas🎅V0.8",
     Text = "الشات+قسم الرحمه+تصحيح الاخطاء"
 })
 
