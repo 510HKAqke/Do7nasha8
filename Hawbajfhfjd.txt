@@ -445,8 +445,84 @@ InfoTab:AddToggle({
 })
 
 local TabNM = Window:MakeTab({ 
-Title = "الأسماء", 
+Title = "اللاعب", 
 Icon = "paper" })
+
+local Players = game:GetService("Players")
+local pl = Players.LocalPlayer
+
+local DEFAULT_SPEED = 16
+local DEFAULT_JUMP = 50
+local DEFAULT_GRAVITY = 196.2
+
+local SpeedValue = DEFAULT_SPEED
+local JumpValue = DEFAULT_JUMP
+local GravityValue = DEFAULT_GRAVITY
+
+local function getHumanoid()
+    local char = pl.Character or pl.CharacterAdded:Wait()
+    return char:WaitForChild("Humanoid")
+end
+
+TabNM:AddTextBox({
+    Name = "سرعة اللاعب",
+    PlaceholderText = "اكتب سرعة اللاعب",
+    Callback = function(value)
+        SpeedValue = tonumber(value) or DEFAULT_SPEED
+    end
+})
+
+TabNM:AddButton({
+    Name = "تفعيل السرعة",
+    Callback = function()
+        local hum = getHumanoid()
+        hum.WalkSpeed = SpeedValue
+    end
+})
+
+TabNM:AddTextBox({
+    Name = "قوة القفز",
+    PlaceholderText = "اكتب قوة القفز",
+    Callback = function(value)
+        JumpValue = tonumber(value) or DEFAULT_JUMP
+    end
+})
+
+TabNM:AddButton({
+    Name = "تفعيل القفز",
+    Callback = function()
+        local hum = getHumanoid()
+        hum.UseJumpPower = true
+        hum.JumpPower = JumpValue
+    end
+})
+
+TabNM:AddTextBox({
+    Name = "الجاذبية",
+    PlaceholderText = "اكتب الجاذبية",
+    Callback = function(value)
+        GravityValue = tonumber(value) or DEFAULT_GRAVITY
+    end
+})
+
+TabNM:AddButton({
+    Name = "تفعيل الجاذبية",
+    Callback = function()
+        workspace.Gravity = GravityValue
+    end
+})
+
+
+TabNM:AddButton({
+    Name = "إعادة كل شيء للوضع الطبيعي",
+    Callback = function()
+        local hum = getHumanoid()
+        hum.WalkSpeed = DEFAULT_SPEED
+        hum.UseJumpPower = true
+        hum.JumpPower = DEFAULT_JUMP
+        workspace.Gravity = DEFAULT_GRAVITY
+    end
+})
 
 local RE = game:GetService("ReplicatedStorage"):WaitForChild("RE"):WaitForChild("1RPNam1eColo1r")
 
@@ -1419,76 +1495,7 @@ game:GetService("ReplicatedStorage"):WaitForChild("RE"):WaitForChild("1Ca1r"):Fi
     end
 })
 
-TrollTab:AddSection({ "مضاد جلوس" })
-TrollTab:AddToggle({
-    Name = "مضاد جلوس",
-    Description = "",
-    Default = false,
-    Callback = function(Value)
-        local player = game.Players.LocalPlayer
-        local connections = {}
-        local runService = game:GetService("RunService")
-
-
-        local function preventSitting(humanoid)
-            if humanoid then
-                humanoid:SetStateEnabled(Enum.HumanoidStateType.Seated, false)
-                local sitConnection = humanoid.StateChanged:Connect(function(_, newState)
-                    if newState == Enum.HumanoidStateType.Seated then
-                        humanoid:ChangeState(Enum.HumanoidStateType.GettingUp)
-                    end
-                end)
-                table.insert(connections, sitConnection)
-            end
-        end
-
-
-        local function monitorCharacter()
-            local function onCharacterAdded(character)
-                local humanoid = character:WaitForChild("Humanoid")
-                preventSitting(humanoid)
-            end
-
-
-            local characterAddedConnection = player.CharacterAdded:Connect(onCharacterAdded)
-            table.insert(connections, characterAddedConnection)
-
-
-            if player.Character then
-                onCharacterAdded(player.Character)
-            end
-        end
-
-
-        local function resetSitting()
-            for _, connection in ipairs(connections) do
-                connection:Disconnect()
-            end
-            connections = {}
-            local humanoid = player.Character and player.Character:FindFirstChildOfClass("Humanoid")
-            if humanoid then
-                humanoid:SetStateEnabled(Enum.HumanoidStateType.Seated, true)
-            end
-        end
-
-
-        if Value then
-            monitorCharacter()
-            local heartbeatConnection = runService.Heartbeat:Connect(function()
-                local humanoid = player.Character and player.Character:FindFirstChildOfClass("Humanoid")
-                if humanoid then
-                    humanoid:SetStateEnabled(Enum.HumanoidStateType.Seated, false)
-                end
-            end)
-            table.insert(connections, heartbeatConnection)
-        else
-            resetSitting()
-        end
-    end
-})
-
 local Troll = Window:MakeTab({ Title = "تخريب على اللاعبين", Icon = "rbxassetid://131153193945220" })
-
 
 local Players = game:GetService("Players")
 local LocalPlayer = Players.LocalPlayer
