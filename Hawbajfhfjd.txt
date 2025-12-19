@@ -6923,3 +6923,49 @@ RedzTab:AddToggle({
 		end
 	end
 })
+
+local UniversalTab = Window:MakeTab({"سكربتات متنوعة", "plane"})
+
+Section = UniversalTab:AddSection({
+    Name = "سكربتات مفيدة"
+})
+
+-- Botão para ShiftLock
+UniversalTab:AddButton({
+    Name = "سكربت قفل",
+    Callback = function()        loadstring(game:HttpGet("https://pastebin.com/raw/N2tiHgyv"))()
+    end
+})
+
+UniversalTab:AddButton({
+    Name = "سكربت ادمن",
+    Callback = function()      loadstring(game:HttpGet("https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source"))()
+    end
+})
+
+UniversalTab:AddButton({
+    Name = "اداة انتقال",
+    Callback = function()        loadstring(game:HttpGet("https://raw.githubusercontent.com/err0r129/KptHadesBlair/main/Bao.lua"))()
+    end
+})
+
+UniversalTab:AddButton({
+    Name = "طيران",
+    Callback = function()      loadstring(game:HttpGet("https://scriptblox.com/raw/Universal-Script-Fly-v3-7412"))()
+    end
+})
+
+UniversalTab:AddButton({
+    Name = "Namelesسكربت ادمن",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/FilteringEnabled/NamelessAdmin/main/Source" ))()
+    end
+})
+
+
+UniversalTab:AddButton({
+    Name = "تحكم بالسيارات",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/SAZXHUB/Control-update/main/README.md", true))()
+    end
+})
