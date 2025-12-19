@@ -18,6 +18,11 @@ Icon = "rbxassetid://10723415903" })
 InfoTab:AddSection({
 Name = "NetroZمعلومات سكربت"
 })
+InfoTab:AddParagraph
+({ "تحديث الكريسماس🤶" })
+InfoTab:AddParagraph
+({ "NetroZHub V0.8" })
+
 InfoTab:AddDiscordInvite({
     Name = "DemozXمطورين",
     Description = "تليجرام",
@@ -25,13 +30,20 @@ InfoTab:AddDiscordInvite({
     Invite = "https://t.me/R_amI11",
 })
 
-InfoTab:AddParagraph({ "المالك / المطورين:", "Rami (TikTok: .q.kn,)" })
-InfoTab:AddParagraph({ "فريق:", ", المطور رآمي, المطور غالي " })
-InfoTab:AddParagraph({ ":سكربت", "NetroZHub" })
-InfoTab:AddSection({ "حسابات المطورين روب" })
-InfoTab:AddParagraph({"Sajwaad :حساب رامي"})
-InfoTab:AddParagraph({"DemonHub_Dev :2حساب رامي"})
-InfoTab:AddParagraph({"ghalidev_0 :حساب غالي"})
+InfoTab:AddSection
+({ "TikTokحسابات المطورين" })
+
+InfoTab:AddParagraph
+({ "Rami: ifbr4 + higg_03" })
+
+InfoTab:AddSection
+({ "حسابات المطورين روب" })
+
+InfoTab:AddParagraph
+({"Rami: Sajwaad + DemonHub_Dev"})
+
+InfoTab:AddParagraph
+({"Ghali: ghalidev_0 + ghali0059 "})
 
 InfoTab:AddSection({ "اعادة دخول" })
 InfoTab:AddButton({
@@ -42,9 +54,6 @@ InfoTab:AddButton({
     end
 })
 
-local InfoTab = Window:MakeTab({ 
-Title = "كشف رتب واشعارات", 
-Icon = "rbxassetid://10723415903" })
 InfoTab:AddSection({ "الرتب" })
 
 local Players = game:GetService("Players")
@@ -6919,10 +6928,4 @@ RedzTab:AddToggle({
 			chatSpy.Disabled = enabled
 		end
 	end
-})
-
-local UniversalTab = Window:MakeTab({"سكربتات متنوعة", "plane"})
-
-Section = UniversalTab:AddSection({
-    Name = "سكربتات مفيدة"
 })
