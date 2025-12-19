@@ -15,6 +15,40 @@ local InfoTab = Window:MakeTab({
 Title = "الحقوق والرتب", 
 Icon = "rbxassetid://10723415903" })
 
+InfoTab:AddParagraph({
+    Title = "التحديث",
+    Text = "كريسماسV0.8"
+})
+InfoTab:AddParagraph({
+    Title = "ابرز الاضافات",
+    Text = "الشات+قسم الرحمه+تصحيح الاخطاء"
+})
+
+InfoTab:AddDiscordInvite({
+    Name = "DemozXمطورين",
+    Description = "تليجرام",
+    Logo = "rbxassetid://109596885589960",
+    Invite = "https://t.me/R_amI11",
+})
+
+InfoTab:AddParagraph({
+    Title = "Rami",
+    Text = "@ifbr4 + @.k.wn0"
+})
+InfoTab:AddParagraph({
+    Title = "Ghali",
+    Text = "@higg_03"
+})
+
+InfoTab:AddParagraph({
+    Title = "Rami",
+    Text = "@Sajwaad + @DemonHub_Dev"
+})
+InfoTab:AddParagraph({
+    Title = "Ghali",
+    Text = "@ghali0059 + @ghalidev_0"
+})
+
 InfoTab:AddSection({ "الرتب" })
 
 local Players = game:GetService("Players")
