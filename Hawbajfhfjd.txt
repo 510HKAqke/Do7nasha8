@@ -5308,7 +5308,7 @@ Icon = "music" })
 MusicTab:AddButton({
     Name = "سكربت الاغاني",
     Callback = function()
-loadstring(game:HttpGet("https://raw.githubusercontent.com/SuperTradei/Super/refs/heads/main/C-71.txt"))()
+loadstring(game:HttpGet("https://scriptsneonauth.vercel.app/api/scripts/2a199277-9790-4eff-82dd-5e6f950ad007/raw"))()
     end
 })
 
