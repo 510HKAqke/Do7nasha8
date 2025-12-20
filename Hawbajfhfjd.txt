@@ -561,8 +561,8 @@ TabNM:AddButton({
 local RE = game:GetService("ReplicatedStorage"):WaitForChild("RE"):WaitForChild("1RPNam1eColo1r")
 
 local rainbowColors = {}
-for i = 1, 300 do
-    rainbowColors[i] = Color3.fromHSV(i/300, 1, 1)
+for i = 1, 15 do
+    rainbowColors[i] = Color3.fromHSV(i/15, 1, 1)
 end
 
 local NameRainbowEnabled = false
@@ -589,7 +589,7 @@ TabNM:AddToggle({
                 for i = 1, #rainbowColors do
                     if not NameRainbowEnabled then break end
                     SetNameColor(rainbowColors[i])
-                    task.wait(0.005 / NameSpeed)
+                    task.wait(0.01 / NameSpeed)
                 end
             end
         end)
@@ -618,7 +618,7 @@ TabNM:AddToggle({
                 for i = 1, #rainbowColors do
                     if not BioRainbowEnabled then break end
                     SetBioColor(rainbowColors[i])
-                    task.wait(0.005 / BioSpeed)
+                    task.wait(0.01 / BioSpeed)
                 end
             end
         end)
