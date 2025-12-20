@@ -589,7 +589,7 @@ TabNM:AddToggle({
                 for i = 1, #rainbowColors do
                     if not NameRainbowEnabled then break end
                     SetNameColor(rainbowColors[i])
-                    task.wait(0.015 / NameSpeed)
+                    task.wait(0.005 / NameSpeed)
                 end
             end
         end)
@@ -618,7 +618,7 @@ TabNM:AddToggle({
                 for i = 1, #rainbowColors do
                     if not BioRainbowEnabled then break end
                     SetBioColor(rainbowColors[i])
-                    task.wait(0.015 / BioSpeed)
+                    task.wait(0.005 / BioSpeed)
                 end
             end
         end)
