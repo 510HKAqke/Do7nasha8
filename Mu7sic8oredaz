@@ -1,3 +1,14 @@
+local redzlib = loadstring(game:HttpGet("https://raw.githubusercontent.com/ghostzx64/star/refs/heads/main/LIBRARY%20AZUL"))()
+local Window = redzlib:MakeWindow({
+    Name = "NetroZ Music",
+    SubTitle = "by Rami&Ghali",
+    SaveFolder = "NetroZHubMusic"
+})
+
+Window:AddMinimizeButton({
+Button = { Image = "rbxassetid://126128591607444", BackgroundTransparency = 0 },
+Corner = { CornerRadius = UDim.new(35, 1) },
+})
 local MusicTab = Window:MakeTab({
     Title = "اغاني عربية",
     Icon = "music"
