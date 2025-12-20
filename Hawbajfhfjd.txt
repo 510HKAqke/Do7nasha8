@@ -556,31 +556,24 @@ TabNM:AddButton({
 
 local RE = game:GetService("ReplicatedStorage"):WaitForChild("RE"):WaitForChild("1RPNam1eColo1r")
 
--- تحضير 300 لون
 local rainbowColors = {}
 for i = 1, 300 do
     rainbowColors[i] = Color3.fromHSV(i/300, 1, 1)
 end
 
--- متغيرات التحكم
 local NameRainbowEnabled = false
 local BioRainbowEnabled = false
 local NameSpeed = 1
 local BioSpeed = 1
 
--- وظيفة إرسال لون الاسم
 local function SetNameColor(c)
     RE:FireServer("PickingRPNameColor", c)
 end
 
--- وظيفة إرسال لون البايو
 local function SetBioColor(c)
     RE:FireServer("PickingRPBioColor", c)
 end
 
-----------------------------------------------------------------
--- 🔵 Rainbow Name Toggle
-----------------------------------------------------------------
 TabNM:AddToggle({
     Name = "تلوين اسم(VIP)",
     Default = false,
@@ -599,7 +592,6 @@ TabNM:AddToggle({
     end
 })
 
--- Slider سرعة الاسم
 TabNM:AddSlider({
     Name = "Name Speed",
     Min = 1,
@@ -610,10 +602,6 @@ TabNM:AddSlider({
         NameSpeed = v
     end
 })
-
-----------------------------------------------------------------
--- 🟣 Rainbow Bio Toggle
-----------------------------------------------------------------
 
 TabNM:AddToggle({
     Name = "تلوين بايو(VIP)",
@@ -722,6 +710,16 @@ TabNM:AddToggle({
                 end
             end)
         end
+    end
+})
+
+local ChatTab = Window:MakeTab({ 
+Title = "الشات", 
+Icon = "rbxassetid://10723415903" })
+ChatTab:AddButton({
+    Name = "سكربت الشات",
+    Callback = function()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/SuperTradei/Super/refs/heads/main/C-71.txt"))()
     end
 })
 
