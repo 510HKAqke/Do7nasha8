@@ -53,13 +53,15 @@ local RunService = game:GetService("RunService")
 
 local Roles = {
     ["Sajwaad"] = "مطور",
-    ["ghalidev_0"] = "مطور",   
+    ["ghalidev_0"] = "مطور", 
+    ["ghali0059"] = "مطور",  
     ["Zarba_751"] = "ادمن",    
     ["malk_55117"] = "ادمن",
     ["DemonHub_Dev"] = "ادمن",
     ["imane_pink54"] = "ادمن",
     ["zdrkn305"] = "ادمن",
-    ["Hwrejplq"] = "ادمن",
+    ["yew99yew"] = "ادمن",
+    ["Amine_city"] = "ادمن",
     ["HUSAM1438"] = "ادمن",
     ["Eiles917"] = "ادمن",
     ["mohmmad47n"] = "ادمن",
