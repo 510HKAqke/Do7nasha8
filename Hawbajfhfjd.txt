@@ -63,6 +63,7 @@ local Roles = {
     ["DemonHub_Dev"] = "ادمن",
     ["imane_pink54"] = "ادمن",
     ["zdrkn305"] = "ادمن",
+    ["gon_doy652"] = "ادمن",
     ["yew99yew"] = "ادمن",
     ["Amine_city"] = "ادمن",
     ["HUSAM1438"] = "ادمن",
